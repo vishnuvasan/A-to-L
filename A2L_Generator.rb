@@ -154,18 +154,4 @@ for i in 2..100
   CompuMethod1[i]=Compu_Details
 end
 
-
-CompuMethodVerb1={1=>{
-		"NAME"=>"Sample Compu Method",
-		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"TAB_VERB", # => Even if you dont specify this Value, Tool will undersand it
-		"PHYSICAL_REP"=>"%3.1",
-		"UNIT"=>"m/s",
-		"COMPU_TAB_REF"=>"VERBAL_FORMULA_1",
-		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
-		"VERB_RANGE"=>"ENABLE",
-		"COMPU_TAB_VALUES"=>Verbal_Formula, 
-		"DEFAULT_VALUE"=>""
-	}}	
-
 A2L.Generate
