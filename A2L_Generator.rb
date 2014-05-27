@@ -105,7 +105,7 @@ Interpolation={1=>2,2=>456,3=>4,5=>6}
 CompuMethod={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"lin",
+		"COMPU_METHOD_TYPE"=>"TAB_INTP",
 		"PHYSICAL_REP"=>"%56.6",
 		"UNIT"=>"m/s",
 		"COEFF_TYPE"=>"COEFFS",
@@ -121,7 +121,7 @@ CompuMethod={1=>{
 		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
 		"INTERPOLATION"=>"DISABLE",
 		"INTERPOLATION_VALUES"=>Interpolation, 
-		"DEFAULT_VALUE"=>""				
+		"DEFAULT_VALUE"=>"55"				
 }}
 
 CompuMethod1=Hash.new
@@ -141,32 +141,6 @@ for i in 2..100
   Compu_Details["COEFF_E"]=i
   CompuMethod1[i]=Compu_Details
 end
-
-
-# CompuMethodForm1={1=>{
-# 		"NAME"=>"Sample Compu Method",
-# 		"DESCRIPTION"=>"Sample Description for Compu Method",
-# 		"COMPU_METHOD_TYPE"=>"FORM", 	# => Even if you dont specify this Value, Tool will undersand it
-# 		"PHYSICAL_REP"=>"%3.1",
-# 		"UNIT"=>"m/s",
-# 		"FORMULA"=>"X+4",
-# 		"FORMULA_INV"=>"X-4"
-# }}
-
-
-CompuMethodIntp1={1=>{
-		"NAME"=>"Sample Compu Method",
-		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"TAB_INTP", # => Even if you dont specify this Value, Tool will undersand it
-		"PHYSICAL_REP"=>"%3.1",
-		"UNIT"=>"m/s",
-		"COMPU_TAB_REF"=>"ABCD",
-		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
-		"INTERPOLATION"=>"DISABLE",
-		"INTERPOLATION_VALUES"=>Interpolation, 
-		"DEFAULT_VALUE"=>""
-	}}
-
 
 # => Hash Containing the Verbal Formula values
 Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"},5=>{1055=>"Cos Wave"}}
