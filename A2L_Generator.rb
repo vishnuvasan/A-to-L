@@ -6,7 +6,7 @@ require File.dirname(__FILE__)+"/A2L.rb"
 # => in this tool will entirely happen only in Hash
 # => If you are not sure of What is a Hash,Please Read about Hashes in Wiki
 # => Before Proceeding Further
-# => Do no Change the Names of the Hashed used.If you are changing the Names
+# => Do no Change the Names of the Hashes used.If you are changing the Names
 # => Then you should respectively be changing it in A2LRender.rb
 # => Regrets Anyways!!!
 
@@ -99,12 +99,14 @@ for i in 2..100
   Measurement1[i]=Variable_Details
 end
 
+# => Hash Containing the Interpolation values
+Interpolation={1=>2,2=>456,3=>4,5=>6}
 
-CompuMethod1={1=>{
+CompuMethod={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"LINEAR",
-		"PHYSICAL_REP"=>"%3.1",
+		"COMPU_METHOD_TYPE"=>"lin",
+		"PHYSICAL_REP"=>"%56.6",
 		"UNIT"=>"m/s",
 		"COEFF_TYPE"=>"COEFFS",
 		"COEFF_A"=>0,
@@ -112,9 +114,17 @@ CompuMethod1={1=>{
 		"COEFF_C"=>56,
 		"COEFF_D"=>12313,
 		"COEFF_E"=>13,
-		"COEFF_F"=>10
+		"COEFF_F"=>10,
+		"FORMULA"=>"X+4",
+		"FORMULA_INV"=>"X-4",
+		"COMPU_TAB_REF"=>"ABCD",
+		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
+		"INTERPOLATION"=>"DISABLE",
+		"INTERPOLATION_VALUES"=>Interpolation, 
+		"DEFAULT_VALUE"=>""				
 }}
 
+CompuMethod1=Hash.new
 
 for i in 2..100
   Compu_Details=Hash.new
@@ -124,7 +134,7 @@ for i in 2..100
   Compu_Details["PHYSICAL_REP"]="%4.5"
   Compu_Details["UNIT"]="No Unit" + " " + i.to_s
   Compu_Details["COEFF_TYPE"]="COEFFS"
-  Compu_Details["COEFF_A"]=i++
+  Compu_Details["COEFF_ 	A"]=i++
   Compu_Details["COEFF_B"]=i++
   Compu_Details["COEFF_C"]=i++
   Compu_Details["COEFF_D"]=i++
@@ -133,18 +143,17 @@ for i in 2..100
 end
 
 
-CompuMethodForm1={1=>{
-		"NAME"=>"Sample Compu Method",
-		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"FORM", 	# => Even if you dont specify this Value, Tool will undersand it
-		"PHYSICAL_REP"=>"%3.1",
-		"UNIT"=>"m/s",
-		"FORMULA"=>"X+4",
-		"FORMULA_INV"=>"X-4"
-}}
+# CompuMethodForm1={1=>{
+# 		"NAME"=>"Sample Compu Method",
+# 		"DESCRIPTION"=>"Sample Description for Compu Method",
+# 		"COMPU_METHOD_TYPE"=>"FORM", 	# => Even if you dont specify this Value, Tool will undersand it
+# 		"PHYSICAL_REP"=>"%3.1",
+# 		"UNIT"=>"m/s",
+# 		"FORMULA"=>"X+4",
+# 		"FORMULA_INV"=>"X-4"
+# }}
 
-# => Hash Containing the Interpolation values
-Interpolation={1=>2,2=>456,3=>4,5=>6}
+
 CompuMethodIntp1={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
@@ -166,7 +175,7 @@ Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"}
 # => Verbal_Formula={
 # => 		1=>{15=>"A"},  	# This will assign for Values from 1 to 15 as "A"
 # => 		16=>{35=>"B"}}	# This will assign for Values from 16 to 35 as "B"
-CompuMethodVerb={1=>{
+CompuMethodVerb1={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
 		"COMPU_METHOD_TYPE"=>"TAB_VERB", # => Even if you dont specify this Value, Tool will undersand it

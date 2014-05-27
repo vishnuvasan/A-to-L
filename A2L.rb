@@ -24,17 +24,21 @@ module A2L
   		puts A2LRender._CompuMethod(CompuMethod) 
   	end
   	
-  	if defined? CompuMethodForm then
-  		puts A2LRender._CompuMethodForm(CompuMethodForm)
-  	end
+  	# if defined? CompuMethodForm then
+  	# 	puts A2LRender._CompuMethodForm(CompuMethodForm)
+  	# end
 
-  	if defined? CompuMethodIntp then
-  		puts A2LRender._CompuMethodIntp(CompuMethodIntp)
-  	end
+    # if defined? CompuMethod then
+    #   puts A2LRender._CompuMethod(CompuMethod)
+    # end
 
-    if defined? CompuMethodVerb then
-      puts A2LRender._CompuMethodVerb(CompuMethodVerb)
-    end  
+  	# if defined? CompuMethodIntp then
+  	# 	puts A2LRender._CompuMethodIntp(CompuMethodIntp)
+  	# end
+
+   #  if defined? CompuMethodVerb then
+   #    puts A2LRender._CompuMethodVerb(CompuMethodVerb)
+   #  end  
 
   end
 
