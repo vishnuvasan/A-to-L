@@ -62,7 +62,8 @@ module A2LRender
 
 
       #Compu Method Type ==> INTERPOLATION
-      if(inputs[key]["COMPU_METHOD_TYPE"].upcase=="TAB_INTP") then  
+      if((inputs[key]["COMPU_METHOD_TYPE"].upcase=="TAB_INTP") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="INTERPOLATION")) then  
+        inputs[key]["COMPU_METHOD_TYPE"]="TAB_INTP"
 
         if(inputs[key]["INTERPOLATION"]=="ENABLE") then
           inputs[key]["COMPU_TAB_TYPE"]="TAB_INTP"
@@ -100,6 +101,69 @@ module A2LRender
         Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-TabIntp.mustache"         
       end    
 
+      #Compu Method Type ==> VERBAL
+      if((inputs[key]["COMPU_METHOD_TYPE"].upcase=="TAB_VERB") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="VERBAL")) then  
+        inputs[key]["COMPU_METHOD_TYPE"]=inputs[key]["COMPU_METHOD_TYPE_1"]="TAB_VERB"
+
+        if (inputs[key]["VERB_RANGE"]=="ENABLE") then
+          inputs[key]["MODE"]="COMPU_VTAB_RANGE"
+          inputs[key]["COMPU_METHOD_TYPE_1"]="" 
+        else
+          inputs[key]["MODE"]="TAB_VERB"
+        end
+
+        if defined? inputs[key]["COMPU_VTAB_VALUES"] then
+          puts inputs[key]["COMPU_VTAB_SIZE"]=inputs[key]["COMPU_VTAB_VALUES"].length
+        else
+          inputs[key]["COMPU_VTAB_SIZE"]=""
+        end
+
+        if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]!="ENABLE" then
+          values=""
+          desired_size=0
+          actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
+          for index in inputs[key]["COMPU_VTAB_VALUES"].keys
+            desired_size+=1
+            if desired_size==1 then pad_space="" else pad_space="    " end
+            if desired_size==actual_size then pad_line="" else pad_line="\n" end
+            values+=pad_space+index.to_s + " "
+            values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index].to_s + '"' + pad_line
+          end 
+          inputs[key]["COMPU_VTAB_VALUES"]=values
+        end
+
+        if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]=="ENABLE" then
+          values=""
+          desired_size=0
+          actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
+
+          for index in inputs[key]["COMPU_VTAB_VALUES"].keys
+
+            desired_size+=1
+            if desired_size==1 then pad_space="" else pad_space="    " end
+            if desired_size==actual_size then pad_line="" else pad_line="\n" end
+            
+            values+=pad_space+index.to_s + " "
+
+            for index1 in inputs[key]["COMPU_VTAB_VALUES"][index].keys
+              values+=index1.to_s + " "
+              values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index][index1].to_s + '"' + pad_line
+            end
+
+          end 
+          inputs[key]["COMPU_VTAB_VALUES"]=values
+        end
+
+        if(inputs[key]["DEFAULT_VALUE"]==nil) or (inputs[key]["DEFAULT_VALUE"]=="") then
+          inputs[key]["DEFAULT_VALUE"]=""
+        elsif inputs[key]["DEFAULT_VALUE"]!=nil then
+          inputs[key]["DEFAULT_VALUE"]="DEFAULT_VALUE " + inputs[key]["DEFAULT_VALUE"].to_s
+        end
+
+        Log._Validate(inputs,"TAB_VERB")
+        Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-TabVerb.mustache"    
+
+      end
 
       #By Default the Compu Method Type would be RAT_FUNC.
       if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
@@ -117,90 +181,90 @@ module A2LRender
     return total
   end  
 
-  def A2LRender._CompuMethodVerb(inputs)
-    Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-TabVerb.mustache"
-    total=""
-    for key in inputs.keys
+  # def A2LRender._CompuMethodVerb(inputs)
+  #   Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-TabVerb.mustache"
+  #   total=""
+  #   for key in inputs.keys
 
-      #By Default the Compu Method Type would be TAB_VERB.
-      if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
-        inputs[key]["COMPU_METHOD_TYPE"]=inputs[key]["COMPU_METHOD_TYPE_1"]="TAB_VERB" 
-      elsif (inputs[key]["COMPU_METHOD_TYPE"]=="TAB_VERB") then
-        inputs[key]["COMPU_METHOD_TYPE_1"]="TAB_VERB"
-      end
+  #     #By Default the Compu Method Type would be TAB_VERB.
+  #     if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
+  #       inputs[key]["COMPU_METHOD_TYPE"]=inputs[key]["COMPU_METHOD_TYPE_1"]="TAB_VERB" 
+  #     elsif (inputs[key]["COMPU_METHOD_TYPE"]=="TAB_VERB") then
+  #       inputs[key]["COMPU_METHOD_TYPE_1"]="TAB_VERB"
+  #     end
 
-      if (inputs[key]["VERB_RANGE"]=="ENABLE") then
-        inputs[key]["MODE"]="COMPU_VTAB_RANGE"
-        inputs[key]["COMPU_METHOD_TYPE_1"]="" 
-      else
-        inputs[key]["MODE"]="TAB_VERB"
-      end
+  #     if (inputs[key]["VERB_RANGE"]=="ENABLE") then
+  #       inputs[key]["MODE"]="COMPU_VTAB_RANGE"
+  #       inputs[key]["COMPU_METHOD_TYPE_1"]="" 
+  #     else
+  #       inputs[key]["MODE"]="TAB_VERB"
+  #     end
 
 
-      if defined? inputs[key]["COMPU_VTAB_VALUES"] then
-        puts inputs[key]["COMPU_VTAB_SIZE"]=inputs[key]["COMPU_VTAB_VALUES"].length
-      else
-        inputs[key]["COMPU_VTAB_SIZE"]=""
-      end
+  #     if defined? inputs[key]["COMPU_VTAB_VALUES"] then
+  #       puts inputs[key]["COMPU_VTAB_SIZE"]=inputs[key]["COMPU_VTAB_VALUES"].length
+  #     else
+  #       inputs[key]["COMPU_VTAB_SIZE"]=""
+  #     end
 
-      if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]!="ENABLE" then
-        values=""
-        desired_size=0
-        actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
-        for index in inputs[key]["COMPU_VTAB_VALUES"].keys
-          desired_size+=1
-          if desired_size==1 then pad_space="" else pad_space="    " end
-          if desired_size==actual_size then pad_line="" else pad_line="\n" end
-          values+=pad_space+index.to_s + " "
-          values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index].to_s + '"' + pad_line
-        end 
-        inputs[key]["COMPU_VTAB_VALUES"]=values
-      end
+  #     if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]!="ENABLE" then
+  #       values=""
+  #       desired_size=0
+  #       actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
+  #       for index in inputs[key]["COMPU_VTAB_VALUES"].keys
+  #         desired_size+=1
+  #         if desired_size==1 then pad_space="" else pad_space="    " end
+  #         if desired_size==actual_size then pad_line="" else pad_line="\n" end
+  #         values+=pad_space+index.to_s + " "
+  #         values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index].to_s + '"' + pad_line
+  #       end 
+  #       inputs[key]["COMPU_VTAB_VALUES"]=values
+  #     end
 
-      if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]=="ENABLE" then
-        values=""
-        desired_size=0
-        actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
+  #     if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]=="ENABLE" then
+  #       values=""
+  #       desired_size=0
+  #       actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
 
-        for index in inputs[key]["COMPU_VTAB_VALUES"].keys
+  #       for index in inputs[key]["COMPU_VTAB_VALUES"].keys
 
-          desired_size+=1
-          if desired_size==1 then pad_space="" else pad_space="    " end
-          if desired_size==actual_size then pad_line="" else pad_line="\n" end
+  #         desired_size+=1
+  #         if desired_size==1 then pad_space="" else pad_space="    " end
+  #         if desired_size==actual_size then pad_line="" else pad_line="\n" end
           
-          values+=pad_space+index.to_s + " "
+  #         values+=pad_space+index.to_s + " "
 
-          # puts "values " + values.to_s
+  #         # puts "values " + values.to_s
 
-          for index1 in inputs[key]["COMPU_VTAB_VALUES"][index].keys
-            values+=index1.to_s + " "
-            values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index][index1].to_s + '"' + pad_line
-          end
+  #         for index1 in inputs[key]["COMPU_VTAB_VALUES"][index].keys
+  #           values+=index1.to_s + " "
+  #           values+='"' + inputs[key]["COMPU_VTAB_VALUES"][index][index1].to_s + '"' + pad_line
+  #         end
 
-        end 
-        inputs[key]["COMPU_VTAB_VALUES"]=values
-      end
-
-
-      # if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]=="ENABLE" then
-      #   values=""
-      #   desired_size=0
-      #   actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
-      #   for index in inputs[key]["COMPU_VTAB_VALUES"].keys
-      #     desired_size+=1
+  #       end 
+  #       inputs[key]["COMPU_VTAB_VALUES"]=values
+  #     end
 
 
-      if(inputs[key]["DEFAULT_VALUE"]==nil) or (inputs[key]["DEFAULT_VALUE"]=="") then
-        inputs[key]["DEFAULT_VALUE"]=""
-      elsif inputs[key]["DEFAULT_VALUE"]!=nil then
-        inputs[key]["DEFAULT_VALUE"]="DEFAULT_VALUE " + inputs[key]["DEFAULT_VALUE"].to_s
-      end      
+  #     # if defined? inputs[key]["COMPU_VTAB_VALUES"] and inputs[key]["VERB_RANGE"]=="ENABLE" then
+  #     #   values=""
+  #     #   desired_size=0
+  #     #   actual_size=inputs[key]["COMPU_VTAB_VALUES"].length
+  #     #   for index in inputs[key]["COMPU_VTAB_VALUES"].keys
+  #     #     desired_size+=1
+
+
+  #     if(inputs[key]["DEFAULT_VALUE"]==nil) or (inputs[key]["DEFAULT_VALUE"]=="") then
+  #       inputs[key]["DEFAULT_VALUE"]=""
+  #     elsif inputs[key]["DEFAULT_VALUE"]!=nil then
+  #       inputs[key]["DEFAULT_VALUE"]="DEFAULT_VALUE " + inputs[key]["DEFAULT_VALUE"].to_s
+  #     end      
       
-      total+=Mustache.render(A2LRender._to_s(inputs[key]))
-    end
+  #     total+=Mustache.render(A2LRender._to_s(inputs[key]))
+  #   end
 
-    return total
-  end
+  #   return total
+  # end
   
   def A2LRender._to_s(inputs)
     for key in inputs.keys
