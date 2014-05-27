@@ -102,10 +102,19 @@ end
 # => Hash Containing the Interpolation values
 Interpolation={1=>2,2=>456,3=>4,5=>6}
 
+# => Hash Containing the Verbal Formula values
+Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"},5=>{1055=>"Cos Wave"}}
+# => Verbal_Formula={1=>"ts",2=>"23",3=>"asdfasdf"}
+# => If you are planning to use Verbal Formula Range then the Hashes should be 2 Level like
+# => Verbal_Formula={
+# => 		1=>{15=>"A"},  	# This will assign for Values from 1 to 15 as "A"
+# => 		16=>{35=>"B"}}	# This will assign for Values from 16 to 35 as "B"
+
+# Verbal_Formula={1=>"Sawtooth",2=>"Square Wave",3=>"Sine wave",5=>"Cos Wave"}
 CompuMethod={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
-		"COMPU_METHOD_TYPE"=>"TAB_INTP",
+		"COMPU_METHOD_TYPE"=>"TAB_VERB",
 		"PHYSICAL_REP"=>"%56.6",
 		"UNIT"=>"m/s",
 		"COEFF_TYPE"=>"COEFFS",
@@ -121,7 +130,10 @@ CompuMethod={1=>{
 		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
 		"INTERPOLATION"=>"DISABLE",
 		"INTERPOLATION_VALUES"=>Interpolation, 
-		"DEFAULT_VALUE"=>"55"				
+		"DEFAULT_VALUE"=>"55",
+		"VERB_RANGE"=>"ENABLE",
+		"COMPU_VTAB_VALUES"=>Verbal_Formula, 
+		"DEFAULT_VALUE"=>""			
 }}
 
 CompuMethod1=Hash.new
@@ -142,23 +154,17 @@ for i in 2..100
   CompuMethod1[i]=Compu_Details
 end
 
-# => Hash Containing the Verbal Formula values
-Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"},5=>{1055=>"Cos Wave"}}
-# Verbal_Formula={1=>"ts",2=>"23",3=>"asdfasdf"}
-# => If you are planning to use Verbal Formula Range then the Hashes should be 2 Level like
-# => Verbal_Formula={
-# => 		1=>{15=>"A"},  	# This will assign for Values from 1 to 15 as "A"
-# => 		16=>{35=>"B"}}	# This will assign for Values from 16 to 35 as "B"
+
 CompuMethodVerb1={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
 		"COMPU_METHOD_TYPE"=>"TAB_VERB", # => Even if you dont specify this Value, Tool will undersand it
 		"PHYSICAL_REP"=>"%3.1",
 		"UNIT"=>"m/s",
-		"COMPU_VTAB_REF"=>"VERBAL_FORMULA_1",
-		"COMPU_VTAB_DESCRIPTION"=>"Sample Tab Verb Formula",
+		"COMPU_TAB_REF"=>"VERBAL_FORMULA_1",
+		"COMPU_TAB_DESCRIPTION"=>"Sample Tab Verb Formula",
 		"VERB_RANGE"=>"ENABLE",
-		"COMPU_VTAB_VALUES"=>Verbal_Formula, 
+		"COMPU_TAB_VALUES"=>Verbal_Formula, 
 		"DEFAULT_VALUE"=>""
 	}}	
 
