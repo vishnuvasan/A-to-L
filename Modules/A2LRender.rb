@@ -1,4 +1,6 @@
 module A2LRender
+  require File.dirname(__FILE__)+"/Log.rb"
+
   Templates="/Templates/"
 
   def A2LRender._Header(inputs)
@@ -21,9 +23,44 @@ module A2LRender
   end
   
   def A2LRender._CompuMethod(inputs)
-    Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod.mustache"
+    #Put the Errors of A2L Creation in to a Log 
+
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Rational.mustache"
     total=""
+
   	for key in inputs.keys
+
+      #Compu Method Type ==> IDENTICAL
+      if((inputs[key]["COMPU_METHOD_TYPE"].upcase=="IDENTICAL") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="IDENT")) then
+        inputs[key]["COMPU_METHOD_TYPE"]="IDENTICAL"
+        Log._Validate(inputs,"IDENTICAL")
+        Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Identical.mustache"
+      end   
+
+      #Compu Method Type ==> LINEAR
+      if((inputs[key]["COMPU_METHOD_TYPE"].upcase=="LINEAR") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="LIN")) then
+        inputs[key]["COMPU_METHOD_TYPE"]="LINEAR"
+        inputs[key]["COEFF_TYPE"]="COEFFS_LINEAR"
+        Log._Validate(inputs,"LINEAR")
+        Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Linear.mustache"
+      end
+
+      #Compu Method Type ==> RAT_FUNC
+      if((inputs[key]["COMPU_METHOD_TYPE"].upcase=="RAT_FUNC") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="RATIONAL") or (inputs[key]["COMPU_METHOD_TYPE"].upcase=="RAT")) then
+        inputs[key]["COMPU_METHOD_TYPE"]="RAT_FUNC"
+        inputs[key]["COEFF_TYPE"]="COEFFS"
+        Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Rational.mustache"
+      end      
+
+      #Compu Method Type ==> FORM
+      if(inputs[key]["COMPU_METHOD_TYPE"].upcase=="FORM") then
+        inputs[key]["COMPU_METHOD_TYPE"]=inputs[key]["COMPU_METHOD_TYPE"].upcase
+        Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Form.mustache"        
+      end
+
+
+
+
 
       #By Default the Compu Method Type would be RAT_FUNC.
       if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
@@ -33,7 +70,7 @@ module A2LRender
       #By Default the Coeffs would be COEFFS.If the User wants to change it,He/She can
       if((inputs[key]["COEFFS"]=="")or(inputs[key]["COEFFS"]==nil)) then 
         inputs[key]["COEFFS"]="COEFFS" 
-      end
+      end   
       
       total+=Mustache.render(A2LRender._to_s(inputs[key]))
   	
@@ -41,21 +78,21 @@ module A2LRender
     return total
   end
 
-  def A2LRender._CompuMethodForm(inputs)
-    Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Form.mustache"
-    total=""
-    for key in inputs.keys
+  # def A2LRender._CompuMethodForm(inputs)
+  #   Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-Form.mustache"
+  #   total=""
+  #   for key in inputs.keys
 
-      #By Default the Compu Method Type would be FORM.
-      if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
-        inputs[key]["COMPU_METHOD_TYPE"]="FORM" 
-      end
+  #     #By Default the Compu Method Type would be FORM.
+  #     if((inputs[key]["COMPU_METHOD_TYPE"]=="")or(inputs[key]["COMPU_METHOD_TYPE"]==nil)) then 
+  #       inputs[key]["COMPU_METHOD_TYPE"]="FORM" 
+  #     end
       
-      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+  #     total+=Mustache.render(A2LRender._to_s(inputs[key]))
     
-    end
-    return total
-  end
+  #   end
+  #   return total
+  # end
 
   def A2LRender._CompuMethodIntp(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "CompuMethod-TabIntp.mustache"
@@ -196,4 +233,5 @@ module A2LRender
     end
     return inputs
   end
+
 end
