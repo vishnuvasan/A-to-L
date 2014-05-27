@@ -19,6 +19,7 @@ module Log
 					is_coeff_type=is_coeff_a=is_coeff_b=is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f=""
 					is_formula=is_formula_inv=""
 					is_compu_tab_ref=is_compu_tab_description=is_interpolation=is_interpolation_values=""
+					is_verb_range=is_compu_vtab_values=""
 				end
 
 				if (template.to_s).upcase=="LINEAR"
@@ -27,6 +28,7 @@ module Log
 					is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f=""
 					is_formula=is_formula_inv=""
 					is_compu_tab_ref=is_compu_tab_description=is_interpolation=is_interpolation_values=""
+					is_verb_range=is_compu_vtab_values=""
 				end
 
 				if (template.to_s).upcase=="RAT_FUNC"
@@ -34,6 +36,7 @@ module Log
 					is_coeff_type=is_coeff_a=is_coeff_b=is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f="VALID"
 					is_formula=is_formula_inv=""
 					is_compu_tab_ref=is_compu_tab_description=is_interpolation=is_interpolation_values=""
+					is_verb_range=is_compu_vtab_values=""
 				end	
 
 				if (template.to_s).upcase=="FORM"
@@ -41,6 +44,7 @@ module Log
 					is_coeff_type=is_coeff_a=is_coeff_b=is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f=""
 					is_formula=is_formula_inv="VALID"
 					is_compu_tab_ref=is_compu_tab_description=is_interpolation=is_interpolation_values=""
+					is_verb_range=is_compu_vtab_values=""
 				end					
 
 				if (template.to_s).upcase=="TAB_INTP"
@@ -48,8 +52,19 @@ module Log
 					is_coeff_type=is_coeff_a=is_coeff_b=is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f=""
 					is_formula=is_formula_inv=""
 					is_compu_tab_ref=is_compu_tab_description=is_interpolation=is_interpolation_values="VALID"
-					is_default_value="VALID"					
-				end			
+					is_default_value="VALID"
+					is_verb_range=is_compu_vtab_values=""					
+				end	
+
+				if (template.to_s).upcase=="TAB_VERB"
+					is_name=is_description=is_compu_method_type=is_physical_rep=is_unit="VALID"
+					is_coeff_type=is_coeff_a=is_coeff_b=is_coeff_c=is_coeff_d=is_coeff_e=is_coeff_f=""
+					is_formula=is_formula_inv=""
+					is_compu_tab_ref=is_compu_tab_description="VALID"
+					is_interpolation=is_interpolation_values=""
+					is_default_value="VALID"
+					is_verb_range=is_compu_vtab_values="VALID"					
+				end							
 
 				if defined? inputs[key]["NAME"]
 				  log.puts _Format_Line("NAME",_Format_Line(is_name,inputs[key]["NAME"].to_s))
@@ -125,7 +140,15 @@ module Log
 
 				if defined? inputs[key]["DEFAULT_VALUE"]
 				  log.puts _Format_Line("DEFAULT_VALUE",_Format_Line(is_default_value,inputs[key]["DEFAULT_VALUE"].to_s))
+				end	
+
+				if defined? inputs[key]["VERB_RANGE"]
+				  log.puts _Format_Line("VERB_RANGE",_Format_Line(is_verb_range,inputs[key]["VERB_RANGE"].to_s))
 				end		
+
+				if defined? inputs[key]["COMPU_VTAB_VALUES"]
+				  log.puts _Format_Line("COMPU_VTAB_VALUES",_Format_Line(is_compu_vtab_values,inputs[key]["COMPU_VTAB_VALUES"].to_s))
+				end	
 
 			end
 	  	end
