@@ -1,0 +1,27 @@
+===================================
+COMPU TYPE : TAB_VERB  KEY : 1
+===================================
+:NAME:                      :VALID:                     Sample Compu Method
+:DESCRIPTION:               :VALID:                     Sample Description for Compu Method
+:COMPU_METHOD_TYPE:         :VALID:                     TAB_VERB
+:PHYSICAL_REP:              :VALID:                     %56.6
+:UNIT:                      :VALID:                     m/s
+:COEFF_TYPE:                ::                          COEFFS
+:COEFF_A:                   ::                          0
+:COEFF_B:                   ::                          45
+:COEFF_C:                   ::                          56
+:COEFF_D:                   ::                          12313
+:COEFF_E:                   ::                          13
+:COEFF_F:                   ::                          10
+:FORMULA:                   ::                          X+4
+:FORMULA_INV:               ::                          X-4
+:COMPU_TAB_REF:             :VALID:                     ABCD
+:COMPU_TAB_DESCRIPTION:     :VALID:                     Sample Tab Verb Formula
+:INTERPOLATION:             ::                          DISABLE
+:INTERPOLATION_VALUES:      ::                          {1=>2, 2=>456, 3=>4, 5=>6}
+:DEFAULT_VALUE:             :VALID:                     
+:VERB_RANGE:                :VALID:                     ENABLE
+:COMPU_VTAB_VALUES:         :VALID:                     1 2 "Sawtooth"
+    2 789 "Square Wave"
+    3 900 "Sine wave"
+    5 1055 "Cos Wave"

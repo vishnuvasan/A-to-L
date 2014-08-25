@@ -17,6 +17,10 @@ module A2LRender
   	Mustache.template_file=File.dirname(__FILE__) + Templates + "Measurement.mustache"
   	total=""
     for key in inputs.keys
+      if(inputs[key]["USER_DEFINED"]==nil) then
+          inputs[key]["USER_DEFINED"]=""
+      end
+
       total+=Mustache.render(A2LRender._to_s(inputs[key]))
     end
     return total

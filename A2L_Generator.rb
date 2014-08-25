@@ -41,7 +41,7 @@ ModCommon1= {
 # => This Example is useless because in Real Time 
 # => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
 
-Measurement1 ={1=>{
+Measurement ={1=>{
 			"ECU_VARIABLE"=>"Variable 1",
 			"DESCRIPTION"=>"This is a Sample Description for this Variable",
 			"DATATYPE"=>"uint8",
@@ -52,7 +52,8 @@ Measurement1 ={1=>{
 			"MAXIMUM"=>127,
 			"BITMASK"=>"0x0000FF",
 			"ECU_ADDRESS"=>"0x0000BB",
-			"INTERNAL_TYPE"=>"BYTE"
+			"INTERNAL_TYPE"=>"BYTE",
+			"USER_DEFINED"=>"You can give any comment as you wish.This will be appended as a comment in the Description"
 }}
 
 ################################################################################################################
@@ -96,7 +97,8 @@ for i in 2..100
   Variable_Details["BITMASK"]="0x0000FF"
   Variable_Details["ECU_ADDRESS"]="0x0000BB"
   Variable_Details["INTERNAL_TYPE"]="BYTE"
-  Measurement1[i]=Variable_Details
+  Variable_Details["USER_DEFINED"]="What the Hell is Happening" + i.to_s
+  Measurement[i]=Variable_Details
 end
 
 # => Hash Containing the Interpolation values
@@ -111,7 +113,7 @@ Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"}
 # => 		16=>{35=>"B"}}	# This will assign for Values from 16 to 35 as "B"
 
 # Verbal_Formula={1=>"Sawtooth",2=>"Square Wave",3=>"Sine wave",5=>"Cos Wave"}
-CompuMethod={1=>{
+CompuMethod1={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
 		"COMPU_METHOD_TYPE"=>"TAB_VERB",
