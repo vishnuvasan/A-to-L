@@ -25,6 +25,20 @@ module A2LRender
     end
     return total
   end
+
+
+  def A2LRender._Characteristic(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic.mustache"
+    total=""
+    for key in inputs.keys
+      if(inputs[key]["USER_DEFINED"]==nil) then
+          inputs[key]["USER_DEFINED"]=""
+      end
+
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end  
   
   def A2LRender._CompuMethod(inputs)
     #Put the Errors of A2L Creation in to a Log 

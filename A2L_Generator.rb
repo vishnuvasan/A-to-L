@@ -16,7 +16,7 @@ require File.dirname(__FILE__)+"/A2L.rb"
 #If you hate these Names and you want to update with your own Hashes then you should be poking 
 #your head in to the Modules\A2L_Render.rb and Customizing the Hash Names for their Respective Template
 
-Measurement=Hash.new
+Measurement1=Hash.new
 
 # => Define the HEADER Details of the A2L
 Header1= {
@@ -41,7 +41,7 @@ ModCommon1= {
 # => This Example is useless because in Real Time 
 # => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
 
-Measurement ={1=>{
+Measurement1 ={1=>{
 			"ECU_VARIABLE"=>"Variable 1",
 			"DESCRIPTION"=>"This is a Sample Description for this Variable",
 			"DATATYPE"=>"uint8",
@@ -98,8 +98,28 @@ for i in 2..100
   Variable_Details["ECU_ADDRESS"]="0x0000BB"
   Variable_Details["INTERNAL_TYPE"]="BYTE"
   Variable_Details["USER_DEFINED"]="What the Hell is Happening" + i.to_s
-  Measurement[i]=Variable_Details
+  Measurement1[i]=Variable_Details
 end
+
+
+# => Initiate Only 1 Variable in the whole Configuration
+# => This Example is useless because in Real Time 
+# => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
+
+Characteristic ={1=>{
+			"ECU_VARIABLE"=>"Variable 1",
+			"DESCRIPTION"=>"This is a Sample Description for this Variable",
+			"DATATYPE"=>"uint8",
+			"COMPU_METHOD"=>"Sample_Compu_Method",
+			"MAX_DIFF"=>0,
+			"MINIMUM"=>-128,
+			"MAXIMUM"=>127,
+			"BITMASK"=>"0x0000FF",
+			"ECU_ADDRESS"=>"0x0000BB",
+			"INTERNAL_TYPE"=>"BYTE",
+			"USER_DEFINED"=>"You can give any comment as you wish.This will be appended as a comment in the Description"
+}}
+
 
 # => Hash Containing the Interpolation values
 Interpolation={1=>2,2=>456,3=>4,5=>6}

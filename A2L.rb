@@ -19,6 +19,10 @@ module A2L
   	if defined? Measurement then 
   		puts A2LRender._Measurement(Measurement) 
   	end
+
+    if defined? Characteristic then 
+      puts A2LRender._Characteristic(Characteristic) 
+    end   
 	
   	if defined? CompuMethod then 
   		puts A2LRender._CompuMethod(CompuMethod) 
