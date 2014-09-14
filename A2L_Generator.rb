@@ -176,4 +176,10 @@ for i in 2..100
   CompuMethod1[i]=Compu_Details
 end
 
+
+XCPConfig=Hash.new
+
+XCPConfig["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
+XCPConfig["ECU_ACCESS"]="_ALLOWED"
+
 A2L.Generate

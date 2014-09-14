@@ -8,6 +8,18 @@ module A2LRender
     return Mustache.render(A2LRender._to_s(inputs))
   end
 
+  def A2LRender._XCPConf(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "XCP-Configuration.mustache"
+    for key in inputs.keys
+      if inputs["ECU_ACCESS"]=="ALLOWED" then
+        inputs["ECU_ACCESS"]="_ALLOWED"
+      elsif inputs["ECU_ACCESS"]==nil then
+        inputs["ECU_ACCESS"]=""
+      end
+    end
+    return Mustache.render(A2LRender._to_s(inputs))
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))

@@ -12,6 +12,10 @@ module A2L
   		puts A2LRender._Header(Header) 
   	end
   	
+    if defined? XCPConfig then
+      puts A2LRender._XCPConf(XCPConfig)
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end
