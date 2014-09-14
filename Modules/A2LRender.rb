@@ -11,10 +11,29 @@ module A2LRender
   def A2LRender._XCPConf(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "XCP-Configuration.mustache"
     for key in inputs.keys
+      
       if inputs["ECU_ACCESS"]=="ALLOWED" then
         inputs["ECU_ACCESS"]="_ALLOWED"
-      elsif inputs["ECU_ACCESS"]==nil then
+      elsif((inputs["ECU_ACCESS"]==nil) or (inputs["ECU_ACCESS"]=="NOT ALLOWED")) then
         inputs["ECU_ACCESS"]=""
+      end
+      
+      if inputs["XCP_READ_ACCESS"]=="ALLOWED" then
+        inputs["XCP_READ_ACCESS"]="_ALLOWED"
+      elsif((inputs["XCP_READ_ACCESS"]==nil) or (inputs["XCP_READ_ACCESS"]=="NOT ALLOWED"))
+        inputs["XCP_READ_ACCESS"]=""
+      end
+
+      if inputs["XCP_WRITE_ACCESS"]=="ALLOWED" then
+        inputs["XCP_WRITE_ACCESS"]="_ALLOWED"
+      elsif((inputs["XCP_WRITE_ACCESS"]==nil) or (inputs["XCP_WRITE_ACCESS"]=="NOT ALLOWED"))
+        inputs["XCP_WRITE_ACCESS"]=""
+      end
+      
+      if inputs["DAQ_SUPPORT"]==true then
+        inputs["DAQ_SUPPORT"]="DAQ_"
+      elsif inputs["DAQ_SUPPORT"]==false then
+        inputs["DAQ_SUPPORT"]=""
       end
     end
     return Mustache.render(A2LRender._to_s(inputs))

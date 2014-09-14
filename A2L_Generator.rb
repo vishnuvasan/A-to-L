@@ -180,6 +180,8 @@ end
 XCPConfig=Hash.new
 
 XCPConfig["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
-XCPConfig["ECU_ACCESS"]="_ALLOWED"
-
+XCPConfig["ECU_ACCESS"]="ALLOWED"
+XCPConfig["XCP_READ_ACCESS"]="NOT ALLOWED"
+XCPConfig["XCP_WRITE_ACCESS"]="ALLOWED"
+XCPConfig["DAQ_SUPPORT"]=false
 A2L.Generate
