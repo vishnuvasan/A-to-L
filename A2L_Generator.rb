@@ -19,17 +19,17 @@ require File.dirname(__FILE__)+"/A2L.rb"
 Measurement1=Hash.new
 
 # => Define the HEADER Details of the A2L
-Header1= {
+Header= {
   			"HEADER"=>"Sample A2L File",
   			"VERSION"=>45,
   			"PROJECT_NO"=>12312
 }
 
 # => Define the Common Module Details of the ECU
-ModCommon1= {
+ModCommon= {
 			"MOD_COMMON"=>nil,
 			"DEPOSIT_ABSOLUTE"=>nil,
-			"BYTE_ORDER_MSB_LAST"=>nil,
+			"BYTE_ORDER"=>"MSB_LAST",
 			"ALIGNMENT_BYTE"=>1,
 			"ALIGNMENT_WORD"=>2,
 			"ALIGNMENT_LONG"=>4,
@@ -106,7 +106,7 @@ end
 # => This Example is useless because in Real Time 
 # => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
 
-Characteristic ={1=>{
+Characteristic1 ={1=>{
 			"ECU_VARIABLE"=>"Variable 1",
 			"DESCRIPTION"=>"This is a Sample Description for this Variable",
 			"DATATYPE"=>"uint8",
