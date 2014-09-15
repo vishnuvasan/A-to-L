@@ -24,6 +24,10 @@ module A2L
       puts A2LRender._CANAPEIni()
     end
 
+    if defined? CreateIni then
+      puts A2LRender._CreateIni()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

@@ -1,0 +1,19 @@
+
+/*********************************************************/
+/*   Create_ini for Vector                               */
+/*********************************************************/
+
+"CNP_CREATE_INI" taggedstruct {
+  block "TP_BLOB" struct {
+    uint;  /* version */
+    taggedstruct {
+      ("PARAMETER" struct {
+        char[256];    /* File Name */
+        char[50];     /* Sektion, $CNP_DRV_SCTN$ bedeutet Eintrag in Device-Section */
+        char[50];     /* Name des Parameters */
+        char[256];    /* Wert des Parameters */
+      })*;
+    };
+  };
+};
+

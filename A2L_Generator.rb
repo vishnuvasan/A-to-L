@@ -190,5 +190,6 @@ XCPConfig1["XCP_WRITE_ACCESS"]="ALLOWED"
 XCPConfig1["DAQ_SUPPORT"]=false
 
 CANAPEIni=true
+CreateIni=true
 
 A2L.Generate
