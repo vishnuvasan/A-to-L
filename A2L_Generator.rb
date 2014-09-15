@@ -191,5 +191,6 @@ XCPConfig1["DAQ_SUPPORT"]=false
 
 CANAPEIni=true
 CreateIni=true
+CANAPEExt=true
 
 A2L.Generate

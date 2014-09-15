@@ -57,6 +57,11 @@ def A2LRender._CreateIni()
   return Mustache.render()
 end
 
+def A2LRender._CANAPEExt()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "CANAPE-Ext-Vector.mustache"
+  return Mustache.render()
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
