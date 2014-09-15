@@ -36,6 +36,10 @@ module A2L
       puts A2LRender._CANAPE_KWP_On_CAN()
     end
 
+    if defined? KWP2000_ETAS then
+      puts A2LRender._KWP2000_ETAS()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end
