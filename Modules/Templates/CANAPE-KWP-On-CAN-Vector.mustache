@@ -1,0 +1,81 @@
+
+/*********************************************************/
+/*   CNP_KWPONCAN (KWP on CAN for Vector                 */
+/*********************************************************/
+
+"CNP_KWPONCAN" taggedstruct {
+    block "TP_BLOB" taggedstruct {
+        block "KWP" struct {
+            ulong;     /* size (blob version 331) */
+            ulong;     /* BlockDelay              */
+            ulong;     /* MaxBlock                */
+            ulong;     /* Timeout                 */
+            ulong;     /* ExtTimeout              */
+            ulong;     /* DelayTesterPresent      */
+            long;      /* SecurityAccess          */
+            char[260]; /* SeedKey                 */
+            uchar;     /* SeedKeyDiagnosticMode   */
+            uchar;     /* DynamicallyDefLocalId   */
+            uchar;     /* ReadIdOption            */
+            uchar;     /* ReadIdResultOffset      */
+            uchar;     /* ReadIdResultSize        */
+            uchar;     /* ExtendedMode            */
+            ulong;     /* RxId                    */
+            ulong;     /* TxId                    */
+            long;      /* BodyCan                 */
+            ulong;     /* GlbTxId                 */
+            uchar;     /* TargetAddr              */
+            uchar;     /* TesterAddr              */
+            ulong;     /* BaseAddr                */
+            long;      /* DelayAutoDisconnect     */
+            long;      /* ZeroPadding             */
+            ulong;     /* CyclicTesterPresent     */
+            uchar;     /* ModeConnect             */
+            uchar;     /* ModeDisconnect          */
+            uchar;     /* ModeCalibration         */
+        };
+        block "DLL" struct {
+            ulong;     /* size (blob version 7) */
+            uchar;     /* CalramOffline         */
+            uchar;     /* CalramCache           */
+            uchar;     /* CalramWriteOpt        */
+            taggedstruct {
+            ("CAL_RAM" struct {
+              ulong;  /* CalramSectorAddr */
+              ulong;})*;  /* CalramSectorSize */
+            };
+        };
+        block "CAN" struct {
+            ulong;     /* size (blob version 282) */
+            ulong;     /* CHANNEL                 */
+            uchar;     /* BTR0                    */
+            uchar;     /* BTR1                    */
+            ulong;     /* RX_QUEUE_SIZE           */
+            char[256]; /* HOST                    */
+            long;      /* PORT                    */
+            long;      /* PROTOCOL_TYPE           */
+            long;      /* SOCKET_TYPE             */
+        };
+        block "CNP_INI" struct {
+            ulong;     /* size (blob version 14) */
+            char[10];  /* CNP_INI Plausibiltätsprüfung beim Einlesen  */
+            taggedstruct {
+                ("PARAMETER" struct {
+                  char[50];         /* Kategorie */
+                  char[50];         /* Name des Parameters */
+                  char[256];})*;    /* Wert des Parameters */
+            };
+        };
+    };
+    "DP_BLOB" struct {
+      ulong;     /* size (blob version 6)       */
+      uint;     /* Address extension of the calibration data */
+                 /* (only Low Byte significant) */
+    };
+    "KP_BLOB" struct {
+      ulong;     /* size (blob version 6)       */
+      uint;     /* Address extension of the calibration data */
+                 /* (only Low Byte significant) */
+    };
+};
+

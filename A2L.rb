@@ -32,6 +32,10 @@ module A2L
       puts A2LRender._CANAPEExt()
     end
 
+    if defined? CANAPE_KWP_On_CAN then
+      puts A2LRender._CANAPE_KWP_On_CAN()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

@@ -62,6 +62,11 @@ def A2LRender._CANAPEExt()
   return Mustache.render()
 end
 
+def A2LRender._CANAPE_KWP_On_CAN()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "CANAPE-KWP-On-CAN-Vector.mustache"
+  return Mustache.render()
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
