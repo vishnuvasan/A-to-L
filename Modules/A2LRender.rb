@@ -68,7 +68,13 @@ def A2LRender._CANAPE_KWP_On_CAN()
 end
 
 def A2LRender._KWP2000_ETAS()
-  Mustache.template_file=File.dirname(__FILE__) + Templates + "_KWP2000-ETAS.mustache"
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "KWP2000-ETAS.mustache"
+  return Mustache.render()
+end
+
+
+def A2LRender._ETK_ETAS()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "ETK-ETAS.mustache"
   return Mustache.render()
 end
 

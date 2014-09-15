@@ -1,0 +1,597 @@
+
+
+
+/*********************************************************/
+/*   ETK for Etas                                        */
+/*********************************************************/
+/****************************************************************************/
+/*                                                                          */
+/*   ASAP2 Meta description for ETK                                         */
+/*   - only applicable with ASAP2 V1.3 -                                    */
+/*                                                                          */
+/*   Used data types:                                                       */
+/*                                                                          */
+/*   A2ML       ASAP2          Windows  Explanation                         */
+/*   ---------------------------------------------------------              */
+/*   uchar      UBYTE          BYTE     unsigned 8 Bit                      */
+/*   char       SBYTE          char     signed 8 Bit                        */
+/*   uint       UWORD          WORD     unsigned integer 16 Bit             */
+/*   int        SWORD          int      signed integer 16 Bit               */
+/*   ulong      ULONG          DWORD    unsigned integer 32 Bit             */
+/*   long       SLONG          LONG     signed integer 32 Bit               */
+/*   float      FLOAT32_IEEE            float 32 Bit                        */
+/*                                                                          */
+/*  Changes:                                                                */
+/*  26.04.99 Hn  closing bracket at 'ADDRESS_MAPPING' added,                */
+/*              Keyword 'RESERVED' changed to 'RESERVED_DISTAB_MEMORY'      */
+/*                                                                          */
+/*  06.07.99 Hn  (V1.0.1) closing bracket at 'ADDRESS_MAPPING' changed to'}'*/
+/*                                                                          */
+/*  03.07.00 Hn  (V1.1.0) New element 'ETK_PRESENCE_CHECK' added to TP-Blob */
+/*                                                                          */
+/*  03.07.01 Hn  (V1.2.0) New element 'COLDSTART_HANDSHAKE' added to TP-Blob*/
+/*                        Parameter 'PBA' deleted                           */
+/*                        New parameter 'InterFaceSpeed' added              */
+/*                                                                          */
+/*                        New QP-Blob for 32 trigger measurement/bypass     */
+/*                                                                          */
+/*  11.01.02 Lug (V1.3.0) RESERVERD_DISTAB_MEMORY' section expanded         */
+/*                        New TP_BLOB Version 0x01000101                    */
+/*                                                                          */
+/*  12.07.02 Wnl (V1.4.0) New QP-BLOB Version 0x00000101                    */
+/*                        Parameter 'Max. Read Variables' added             */
+/*                        Parameter 'Max. Write Variables' added            */
+/*  02.10.02 Wnl (V1.4.0) KP_Blob extension                                 */
+/*                        - enum for address location                       */
+/*                        - DEFAULT_RASTER                                  */
+/*  07.04.03 Wnl (V1.4.0) AML Syntax Errors corrected                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*                                                                          */
+/* For a correct working of the ETK, the following MEMORY_SEGMENTs have to  */
+/* be specified in the section 'MOD_PAR' of the ASAP2 file:                 */
+/*                                                                          */
+/*  /begin MEMORY_SEGMENT                                                   */
+/*     Dataxxxx ""  DATA FLASH <mem. location> <address> <size> <mirrors>   */
+/*  /end MEMORY_SEGMENT                                                     */
+/*                                                                          */
+/*  /begin MEMORY_SEGMENT                                                   */
+/*     Codexxxx ""  CODE FLASH <mem. location> <address> <size> <mirrors>   */
+/*  /end MEMORY_SEGMENT                                                     */
+/*                                                                          */
+/*  /begin MEMORY_SEGMENT                                                   */
+/*     ExRAM "ExRAM for DISTAB" VARIABLES RAM EXTERN <address><size><mirrors>*/
+/*  /end MEMORY_SEGMENT                                                     */
+/*                                                                          */
+/*  Remark: All data included in a hex file, but not specified by a memory  */
+/*          segment will be ignored inside the application program and lost */
+/*          when generating hex file export                                 */
+/*                                                                          */
+/****************************************************************************/
+
+"ASAP1B_Bypass" taggedstruct {
+
+    (block "SOURCE" struct {
+        struct {
+            char[101];  /* source name                                     */
+            int;        /* period definition: basic scaling unit in CSE    */
+                        /* defined in ASAP1b (CSE = code for scaling unit) */
+            long;       /* period definition: rate in scaling units        */
+        };
+        taggedstruct {
+            block "QP_BLOB" struct {
+                uint;   /* source identifier                               */
+            };
+        };
+    })*;
+
+    block "TP_BLOB" struct {
+        uint;           /* Bypass Version, High Byte: Version              */
+                        /*                 Low Byte : subversion (dec.)    */
+        uint;           /* Blob Version,   High Byte: Version              */
+                        /*                 Low Byte : subversion (dec.)    */
+    };
+
+    block "DP_BLOB" struct {
+    };
+
+    block "PA_BLOB" struct {
+    };
+
+    block "KP_BLOB" struct {
+        taggedstruct {
+
+            "BUFFER_OFFSET"    char[256];  /* parameter value represents   */
+                                           /* switch: 0 = bypass disabled, */
+                                           /*         1 = bypass enabled   */
+
+            "SOURCE_ID"        char[256];  /* parameter value represents   */
+                                           /* stimulus channel             */
+
+            "BIT_OFFSET"       char[256];  /* parameter value represents   */
+                                           /* mask in case of bit objects  */
+
+            "POSSIBLE_SOURCES" ( uint )*;  /* list of all channels, where  */
+                                           /* intervention point is usable */
+                         /* special cases:                                 */
+                         /* empty list = intervention point is defined,    */
+                         /*              but unusable                      */
+                         /* keyword omitted = intervention point is usable */
+                         /*                   in all available channels    */
+        };
+    };
+
+}; /* end of taggedstruct "ASAP1B_Bypass" */
+
+"ETK" taggedstruct
+{
+  /* Description of an address mapping between addresses in the view of the */
+  /* EPROM of the ECU (and ASAP2) and the addresses in the scope of the ETK */
+  /* IF_DATA section used with MEMORY_SEGMENT (can be missing if no         */
+  /* differences between the 2 views)                                       */
+
+  ("ADDRESS_MAPPING" struct 
+    {
+     ulong;              /* Start address of MEMORY_SEGMENT                 */
+     ulong;              /* mapped start address for ETK                    */
+     ulong;              /* Length of mapped address range                  */
+    }
+   )*;                   /* multiple use of ADDRESS_MAPPING is possible     */
+                         /* (even each MEMORY_SEGMENT)                      */
+
+
+  (block "SOURCE" struct
+  {
+  /* Description of the acquisition (trigger) levels supplied by the ECU,   */
+  /* 3 is max. no. for ETK                                                  */
+
+    struct
+    {
+      char [100];        /* Source name                                     */
+      int;               /* CSE unit according to Asap1b (minimal period    */
+                         /* duration) of the acqisition raster              */
+      long;              /* Minimal period number measured in the CSE unit  */
+    };
+    taggedstruct
+    {
+      "QP_BLOB" struct
+      {
+      /* Description of additional information needed by the ETK device     */
+      /* driver to collect the measurement data from a certain              */
+      /* acquisition raster                                                 */
+        uint;            /* version number, high byte must be >=1 to be     */
+                         /* able to distinguish old versions without        */
+                         /* version numbers current value: 0x101 (V1.1)     */
+        uint;            /* hardware trigger number (1..32)                 */
+        enum {           /* trigger type                                    */
+          "DIRECT"=1,
+          "INDIRECT"=2
+        };
+        uint;            /* raster priority (1..32), higher number = higher */
+                         /* priority                                        */
+        enum {           /* assigned application                            */
+          "MEASUREMENT"=0,
+          "BYPASS"=1
+        }; 
+        ulong;           /* address of trigger flag (only valid if trigger  */
+                         /* type INDIRECT)                                  */
+        uint;            /* maximum length of display table in bytes        */
+        ulong;           /* start address of display table                  */
+        ulong;           /* output address of display table                 */
+        uint;            /* max. size of bypass receive table               */
+        ulong;           /* start address of address table for bypass       */
+                         /* output - Xpass compatible Bypass only !!        */
+        ulong;           /* output address of the bypass table              */
+        ulong;           /* worst case minimum raster time in us            */
+                         /* (1000 = 1ms raster)                             */
+        uint;            /* maximum read variables                          */
+        uint;            /* maximum write variables                         */
+      };
+    };
+  })*;                   /* SOURCE can be used several times                */
+
+  block "TP_BLOB" struct
+  {
+  /* Description of additional information needed to configure the ETK      */
+  /* device driver for measurement and calibration                          */
+
+    ulong;               /* Version number of the TP-Blob; uppermost byte   */
+                         /* is always != 0, so that informations cannot be  */
+                         /* mixed up with older blob versions (trigger      */
+                         /* address was previously at the first position    */
+                         /* and had max. 24 Bit)                            */
+                         /* current value: 0x01000101                       */
+    enum {               /* fix comm speed on ETK line to 8/100 MBit/s      */
+      "INTERFACE_SPEED_8MBIT"   = 1,
+      "INTERFACE_SPEED_100MBIT" = 2
+    };
+    ulong;               /* ETKP: RESET_CFG parameter only for PPC family   */
+
+    taggedstruct {
+
+      (block "DISTAB_CFG" struct
+      {
+        uint;            /* Type of display table (13 recommended,   DSPTAB */
+                         /* 12, 11, 20 only for old projects)               */
+        uint;            /* Data type display table: 1=byte 2=word  DAT_MOD */
+                         /* additional code table for distab 13 depending   */
+                         /* on bus width / bus access                       */
+                         /* (see distab 13 spec. for more information)      */
+        uint;            /* Byte order 1 = high first, 2 = low first    RFG */
+        ulong;           /* Trigger segment address                TRGSEGAD */
+        ulong;           /* Trigger configuration  (special code)   TRG_CFG */
+        taggedstruct {
+          "TRG_MOD" ( uchar)*; /* Dyn. length for                   TRG_MOD */
+                               /* (special code)                            */
+        };
+      })*;
+
+      "CODE_CHK" struct 
+      {
+      /* A check, whether program and data are matching can be performed, if*/
+      /* the ECU copies a certain 'program identifier' (e.g. the code       */
+      /* checksum) into the external RAM and the same identifier is stored  */
+      /* in the data range. The ETK driver can read and compare both        */
+      /* identifier and issue an error message, if the both identifiers do  */
+      /*  not match.                                                        */
+
+        ulong;           /* ETK: address of program identifier in the data  */
+                         /* range PRG_DATA                                  */
+        uint;            /* ETK: length of program identifier in the data   */
+                         /* range (max. 4 bytes)                            */
+        ulong;           /* ETK: address of program identifier in the       */
+                         /* external RAM PRG_ERAM                           */
+        uint;            /* ETK: length of program identifier in the        */
+                         /* external RAM (max. 4 bytes)                     */
+        /* If all parameters contain 0x0 values, no check is performed      */
+      };
+
+      "ETK_CFG" ( uchar)*; /* ETK_CFG parameters (dyn. length)            */
+      /* Description of ETK configuration parameters, as configured with    */
+      /* the ETK configuration tool                                         */
+
+      ( "EMU_DATA" struct 
+      {
+      /* Additional description of data ranges overwriting the              */
+      /* MEMORY_SEGMENT description                                         */
+
+        ulong;           /* Start address                                   */
+        ulong;           /* Length in bytes                                 */
+        enum {           /* Memory attribute                                */
+          "INTERN"  = 0,
+          "EXTERN"  = 1
+        };
+                         /* Description of offsets to additional data       */
+                         /* ranges where the contents of this data range    */
+                         /* are mirrored                                    */
+        ulong;           /* Mirror offset 1                                 */
+        ulong;           /* Mirror offset 2                                 */
+        ulong;           /* Mirror offset 3                                 */
+        ulong;           /* Mirror offset 4                                 */
+        ulong;           /* Mirror offset 5                                 */
+                         /* Mirror offsets of -1 indicate that there is no  */
+                         /* mirror offset                                   */
+      })*;
+
+      ( "EMU_CODE" struct
+      {
+      /* Additional description of code ranges overwriting the              */
+      /* MEMORY_SEGMENT description                                         */
+
+        ulong;           /* Start address                                   */
+        ulong;           /* Length in bytes                                 */
+        enum {           /* Memory attribute                                */
+          "INTERN"  = 0,
+          "EXTERN"  = 1
+        };
+        ulong;           /* Mirror offset 1                                 */
+        ulong;           /* Mirror offset 2                                 */
+        ulong;           /* Mirror offset 3                                 */
+        ulong;           /* Mirror offset 4                                 */
+        ulong;           /* Mirror offset 5                                 */
+      })*;
+
+      ( "EMU_RAM" struct 
+      {
+      /* Additional description of external RAM ranges overwriting the      */
+      /* MEMORY_SEGMENT description                                         */
+
+        ulong;           /* Start address                                   */
+        ulong;           /* Length in bytes                                 */
+        enum {           /* Memory attribute                                */
+          "INTERN"  = 0,
+          "EXTERN"  = 1
+        };
+        ulong;           /* Mirror offset 1                                 */
+        ulong;           /* Mirror offset 2                                 */
+        ulong;           /* Mirror offset 3                                 */
+        ulong;           /* Mirror offset 4                                 */
+        ulong;           /* Mirror offset 5                                 */
+      })*;
+
+      ( "RESERVED_DISTAB_MEMORY" struct 
+      {
+      /* Description of 'reserved ranges' (especially in the data or code   */
+      /* ranges; e.g. location of the display tables) that are excluded     */
+      /* from checksum verification. If the 3 display tables stand close    */
+      /* together, the size of the reserved memory is calculated by the     */
+      /* following formula:                                                 */
+      /*          size = (highest start address of the 3 distabs)           */
+      /*                  + ((size of this distab) + 2) * 4                 */
+      /*                  - (lowest start address of the 3 distabs)         */
+
+        ulong;           /* Start address                                   */
+        ulong;           /* Length in bytes                                 */
+        enum {           /* Location                                        */
+          "INTERN"  = 0,
+          "EXTERN"  = 1
+        };
+        enum {           /* application                                     */
+          "MEASUREMENT" = 0,
+          "BYPASS"      = 1
+        };
+        enum {           /* usage                                           */
+          "CHECKSUM_EXCLUDE_ONLY" = 0,
+          "ECU_DISTAB_INPUT"      = 1,
+          "ECU_DISTAB_OUTPUT"     = 2,
+          "ECU_DISTAB_INOUT"      = 3
+        };
+        ulong;           /* Mirror offset 1                                 */
+        ulong;           /* Mirror offset 2                                 */
+        ulong;           /* Mirror offset 3                                 */
+        ulong;           /* Mirror offset 4                                 */
+        ulong;           /* Mirror offset 5                                 */
+      })*;
+
+      "ETK_MAILBOX" struct 
+      {
+      /* Description of the ETK mailbox that is used for communication      */
+      /* between the ECU and the application program (e.g. for programming  */
+      /* data into the ECU flash)                                           */
+
+        ulong;           /* Test pattern for the ECU to detect a valid      */
+                         /* mailbox                                         */
+        enum {           /* Memory page (code, data, external RAM) used for */
+                         /* communication from application program to ECU   */
+          "CODE"  = 1,
+          "DATA"  = 2,
+          "EXRAM" = 3
+        };
+        ulong;           /* Base address of buffer for communication appl.  */
+                         /* program -> ECU                                  */
+        ulong;           /* Length of buffer for comunication appl.         */
+                         /* program -> ECU                                  */
+        enum {           /* Memory page (code, data, external RAM) used for */
+                         /* communication from ECU to application program   */
+          "CODE"  = 1,
+          "DATA"  = 2,
+          "EXRAM" = 3
+        };
+        ulong;           /* Base address of buffer for communication        */
+                         /* ECU -> appl. program                            */
+        ulong;           /* Length of buffer for comunication               */
+                         /* ECU -> appl. program                            */
+      };
+
+      block "ETK_PRESENCE_CHECK" struct 
+      {
+        ulong;           /* address of ETK recognition pattern              */
+        taggedstruct {
+          "ETK_PATTERN" (uchar)*; /* Dyn. length for pattern                */
+        };
+      };
+
+      block "COLDSTART_HANDSHAKE" struct 
+      {
+        ulong;           /* address of ETKS cold start pattern              */
+        taggedstruct {
+          "WAIT" ( uchar)*;   /* Dyn. length for 'wait' pattern             */
+        };
+        taggedstruct {
+          "READY" ( uchar)*; /* Dyn. length for 'ready' pattern             */
+        };
+      };
+    };
+  };
+
+  "DP_BLOB" struct
+  {
+  /* for CHARACTERISTIC and AXIS_PTS and MEMORY_LAYOUT                      */
+
+    ulong;               /* start address for example of a map              */
+    ulong;               /* length of the map                               */
+  };
+
+  "KP_BLOB" struct
+  {
+    ulong;               /* Start address of measurement variable           */
+    enum {               /* Address location                                */
+      "INTERN"  = 0,
+      "EXTERN"  = 1
+    };
+    uint;                /* Size of measurement in bytes                    */
+    taggedstruct {
+      ("RASTER" uchar )*;/* Array of event channel initialization values    */
+    };
+  };
+};
+
+
+"VISU_PACKAGE_INFO" taggedstruct
+{
+  "ROM_ID_PACKAGE" struct
+  {
+    char[100];
+  };
+};
+
+
+"VISU" taggedstruct
+{
+  "ADR_COM" struct
+  {
+    ulong;               /* Start address of measurement variable           */
+  };
+
+  "ADR_ABS" struct
+  {
+    ulong;               /* Start address of measurement variable           */
+  };
+
+  "AXE_INPUT_LIST_X" struct 
+  {
+    char[500];              /* Start address of measurement variable           */
+  };
+
+  "AXE_INPUT_LIST_Y" struct
+  {
+    char[500];               /* Start address of measurement variable           */
+  };
+};
+
+"VISU_CCP" taggedstruct
+{
+  "ECU_NB" struct {ulong;};                          /* ECU Number 1=DDS                               */
+  "PROTOCOL" struct {char[32];};                    /* Protocol Issue                                 */
+  "PROTOCOL_DISPLAY" struct {char[32];};                   /* Protocol name to be displayed                  */
+  "BAUD_RATE" struct {ulong;};                        /*  500 Mbits                                     */
+  "SESSION_PROTECTED" struct {ulong;};                          /* 0 = not protected                              */
+  "SEED_KEY" struct {char[32];};               /* used to unlock session                         */
+  "NB_DAQ_LIST" struct {ulong;};                          /* Nb of DAQ                                      */
+
+  "DAQ0_SHORT_NAME" struct {char[32];};
+  "DAQ0_CAN_ID" struct {ulong;};                    /* Id Can for VISU DAQ data reception             */
+  "DAQ0_EVENT_CHANNEL" struct {ulong;};                        /* ECU event channel for transmission             */
+  "DAQ0_TYPE" struct {char[32];};                 /* ASynchro ==> time base  Synchro ==> Engine Rev */
+  "DAQ0_PERIOD" struct {ulong;};                       /* Period DAQ0 ( ms)                              */
+  "DAQ0_NB_OF_ODT" struct {ulong;};                       /* Number of ODT for DAQ0                         */
+
+  "DAQ1_SHORT_NAME" struct {char[32];};
+  "DAQ1_CAN_ID" struct {ulong;};                    /* Id Can for VISU DAQ data reception             */
+  "DAQ1_EVENT_CHANNEL" struct {ulong;};                        /* ECU event channel for transmission             */
+  "DAQ1_TYPE" struct {char[32];};                 /* ASynchro ==> time base  Synchro ==> Engine Rev */
+  "DAQ1_PERIOD" struct {ulong;};                      /* Period DAQ1 ( ms)                              */
+  "DAQ1_NB_OF_ODT" struct {ulong;};                       /* Number of ODT for DAQ1                         */
+
+  "DAQ2_SHORT_NAME" struct {char[32];};
+  "DAQ2_CAN_ID" struct {ulong;};                    /* Id Can for VISU DAQ data reception             */
+  "DAQ2_EVENT_CHANNEL" struct {ulong;};                        /* ECU event channel for transmission             */
+  "DAQ2_TYPE" struct {char[32];};                  /* ASynchro ==> time base  Synchro ==> Engine Rev */
+  "DAQ2_PERIOD" struct {ulong;};                        /* Period DAQ1 ( ms)                              */
+  "DAQ2_NB_OF_ODT" struct {ulong;};                       /* Number of ODT for DAQ1                         */
+
+  "STATION_NUMBER" struct {ulong;};                      /* Station Nb for connect                         */
+  "TRANSMIT_ID" struct {ulong;};                    /* CAN Id used by  VISU for message transmission  */
+  "RECEIVE_ID" struct {ulong;};                    /* CAN Id used by VISU for  message reception     */
+  "TIMER_SOURCE" struct {char[32];};         /* Measurement that describes the ECU clock       */
+  "TIMER_SOURCE_MIN" struct {ulong;};
+  "TIMER_SOURCE_MAX" struct {ulong;};
+  "BUILD_ARRAY" struct {ulong;};                        /* Contruct tables from expanded arrays */
+  "ARRONDI" struct {ulong;};                        /* type arrondi                         */
+  "ROM_ID_VERSION" struct {ulong;};                        /* ROM ID Type                          */
+  "ROM_ID_SOURCE" struct {char[32];};          /* ROM ID Symbol                        */
+  "FAULT_VERSION" struct {ulong;};                        /* Fault layout version                 */
+  "FAULT_SOURCE" struct {char[32];};    /* Soft fault table                     */
+  "FAULT_BITMASK_SOFT" struct {ulong;};                   /* Masque définissant le bit à tester pour le type de Faute "Soft"     */
+  "FAULT_BITMASK_RECOVERY" struct {ulong;};                   /* Masque définissant le bit à tester pour le type de Faute "Recovery" */
+  "FAULT_BITMASK_LATCHED" struct {ulong;};                   /* Masque définissant le bit à tester pour le type de Faute "Latched"  */
+
+  "PAGE_ROM" struct {ulong;};                        /* ROM page number                      */
+  "PAGE_RAM" struct {ulong;};                        /* RAM page number                      */
+};
+
+"VISU_DIAG_ON_CAN" taggedstruct
+{
+  "ECU_NB" struct {ulong;};                          /* ECU Number 1=DDS */
+        "PROTOCOL"  struct {char[32];};              /* Protocol Issue */
+        "PROTOCOL_DISPLAY" struct {char[32];};       /* Protocol name to be displayed */
+        "BAUD_RATE" struct {ulong;};                 /* Kbits */
+        "TRANSMIT_ID" struct {ulong;};               /* CAN Id message */
+        "RECEIVE_ID" struct {ulong;};                /* CAN Id message */
+        "DIAG_SESSION" struct {ulong;};              /* Diagnostic session number */
+        "DEFAULT_SESSION" struct {ulong;};           /* Default session number */
+        "BLOCK_SIZE_TX" struct {ulong;};             /* nb of CAN msg by block for transmission Tool to ECU */
+        "SEP_TIME_MIN_TX" struct {ulong;};           /* (in ms) mini time between 2 CAN msg for transmission Tool to ECU */
+        "C2I_VERSION" struct {ulong;};               /* version C2I */
+        "C2I_NB_CYLIND" struct {ulong;};             /* Nombre de cylindres */
+        "LID_FR" struct {ulong;};                    /* Local ID for broadcast mode */
+        "SSID_TEST_RR" struct {ulong;};              /* SubSID to Read emulation status */
+        "SSID_COPY_RR"         struct {ulong;};      /* SubSID to Copy ROM to RAM */
+        "SSID_ROMTORAM"        struct {ulong;};      /* SubSID to Switch ROM to RAM */
+        "SSID_RAMTOROM"        struct {ulong;};      /* SubSID to Switch RAM to ROM */
+        "TIMER_SOURCE"         struct {char[32];};   /* Measurement that describes the ECU clock */
+        "TIMER_SOURCE_MIN"     struct {ulong;};
+        "TIMER_SOURCE_MAX"     struct {ulong;};
+        "BUILD_ARRAY"          struct {ulong;};      /* Contruct tables from expanded arrays */
+        "ARRONDI"              struct {ulong;};      /* type arrondi */
+        "APV_MSB_ADR"          struct {ulong;};      /* adresse haute segment calib */
+        "ROM_ID_VERSION"       struct {ulong;};      /* ROM ID Type */
+        "ROM_ID_SOURCE"        struct {char[32];};   /* ROM ID Symbol */
+        "FLASHLDR_VER"         struct {ulong;};      /* Flash loader version */
+        "VM_CODE"              struct {char[32];};   /* Customer protocol */
+        "FILL_BYTE"            struct {ulong;};      /* Fill Byte Character
+        "FAULT_VERSION"        struct {ulong;};      /* Fault layout version */
+        "FAULT_SOURCE"         struct {char[32];};   /* Soft fault table */
+        "FAULT_BITMASK_SOFT"   struct {ulong;};      /* Masque définissant le bit à tester pour le type de Faute "Soft" */
+        "FAULT_BITMASK_RECOVERY"  struct {ulong;};   /* Masque définissant le bit à tester pour le type de Faute "Recovery" */
+        "FAULT_BITMASK_LATCHED"   struct {ulong;};   /* Masque définissant le bit à tester pour le type de Faute "Latched" */
+};
+
+"VISU_KW2000" taggedstruct
+{
+        "PROTOCOL"            struct {char[32];};                  /* Protocole de communication       */
+        "PROTOCOL_DISPLAY"    struct {char[32];};  /* Protocol name to be displayed    */
+        "ECU_ADDRESS"         struct {ulong;};                    /* Adresse de l'ECU                 */
+        "TESTER_ADDRESS"      struct {ulong;};                    /* Adresse du PC                    */
+        "WAKEUP_TYPE"         struct {char[32];};                    /* Mode d'initialisation            */
+        "BAUD_RATE_VERSION"   struct {ulong;};   
+        "BAUD_RATE"           struct {ulong;};                   /* Vitesse de communication         */
+        "BAUD_RATE_1"         struct {ulong;};                   /* Vitesse 1                        */
+        "BAUD_RATE_2"         struct {ulong;};                   /* Vitesse 2                        */
+        "BAUD_RATE_CODE"      struct {ulong;};
+        "BAUD_RATE_CODE_1"    struct {ulong;};
+        "BAUD_RATE_CODE_2"    struct {ulong;};
+        "LID_FR"              struct {ulong;};                    /* Local ID for broadcast mode      */
+        "SSID_TEST_RR"        struct {ulong;};                    /* SubSID to Read emulation status  */
+        "SSID_COPY_RR"        struct {ulong;};                    /* SubSID to Copy ROM to RAM        */
+        "SSID_ROMTORAM"       struct {ulong;};                    /* SubSID to Switch ROM to RAM      */
+        "SSID_RAMTOROM"       struct {ulong;};                    /* SubSID to Switch RAM to ROM      */
+        "P1"                  struct {ulong;};                       /* P1 Temps inter octet pour reponse ECU */
+        "P2_MIN"              struct {ulong;};                       /* P2 Min                           */
+        "P2_MAX"              struct {ulong;};                     /* P2 Max                           */
+        "P3_MIN"              struct {ulong;};                       /* P3 Min                           */    
+        "P3_MAX"              struct {ulong;};                    /* P3 Max                           */
+        "P4"                  struct {ulong;};                       /* P4 Temps inter octet pour tester request */
+        "P4_END_UPPER_FR"     struct {ulong;};
+        "PARITY"              struct {char[32];};                /* Parity                           */
+        "STOP_BITS"           struct {char[32];};              /* Stop bits                        */
+        "DATA_BITS"           struct {ulong;};                       /* Data bits                        */
+        "C2I_VERSION"         struct {ulong;};                       /* version C2I                      */
+        "C2I_NB_CYLIND"       struct {ulong;};                       /* Nombre de cylindres              */
+        "DIAG_SESSION"        struct {ulong;};                    /* Diagnostic session number        */
+        "TIMER_SOURCE"        struct {char[32];};  /* Measurement that describes the ECU clock */
+        "TIMER_SOURCE_MIN"    struct {ulong;};
+        "TIMER_SOURCE_MAX"    struct {ulong;};
+        "BUILD_ARRAY"         struct {ulong;};                       /* Contruct tables from expanded arrays */
+        "ROM_ID_VERSION"      struct {ulong;};                       /* ROM ID Type                      */
+        "ROM_ID_SOURCE"       struct {char[32];};         /* ROM ID Symbol                    */
+        "FAULT_VERSION"       struct {ulong;};                       /* Fault layout version             */
+        "FAULT_SOURCE"        struct {char[32];};   /* Soft fault table                 */
+        "FAULT_BITMASK_SOFT"  struct {ulong;};                  /* Masque définissant le bit à tester pour le type de Faute "Soft"      */
+        "FAULT_BITMASK_RECOVERY"  struct {ulong;};              /* Masque définissant le bit à tester pour le type de Faute "Recovery"  */
+        "FAULT_BITMASK_LATCHED"   struct {ulong;};              /* Masque définissant le bit à tester pour le type de Faute "Latched"   */
+        "FLASHLDR_VER"        struct {ulong;};                       /* Flash loader version             */
+        "VM_CODE"             struct {char[32];};                     /* Customer protocol                */
+        "ACQUI_DATA_BYTES"    struct {ulong;};                      /* Number of data bytes per acquisition salve */
+};
+
+
+
+};
+/end A2ML
+
+        /begin IF_DATA VISU_PACKAGE_INFO 
+       ROM_ID_PACKAGE "VMH7B000_DELIV_3"
+        /end IF_DATA
+  

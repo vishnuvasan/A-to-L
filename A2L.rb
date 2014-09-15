@@ -40,6 +40,10 @@ module A2L
       puts A2LRender._KWP2000_ETAS()
     end
 
+    if defined? ETK_ETAS then
+      puts A2LRender._ETK_ETAS()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

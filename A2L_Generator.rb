@@ -194,5 +194,6 @@ CreateIni=true
 CANAPEExt=true
 CANAPE_KWP_On_CAN=true
 KWP2000_ETAS=true
+ETK_ETAS=true
 
 A2L.Generate
