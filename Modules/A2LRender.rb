@@ -8,6 +8,13 @@ module A2LRender
     return Mustache.render(A2LRender._to_s(inputs))
   end
 
+  def A2LRender._CCPConf(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "CCP-Configuration.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+
+  end
+
+
   def A2LRender._XCPConf(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "XCP-Configuration.mustache"
     for key in inputs.keys

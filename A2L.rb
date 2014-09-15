@@ -11,6 +11,10 @@ module A2L
   	if defined? Header then 
   		puts A2LRender._Header(Header) 
   	end
+
+    if defined? CCPConfig then
+      puts A2LRender._CCPConf(CCPConfig)
+    end
   	
     if defined? XCPConfig then
       puts A2LRender._XCPConf(XCPConfig)

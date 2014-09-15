@@ -177,11 +177,18 @@ for i in 2..100
 end
 
 
-XCPConfig=Hash.new
+CCPConfig=Hash.new
+CCPConfig["DESCRIPTOR_FOR_CCP"]="Welcome to CCP"
 
-XCPConfig["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
-XCPConfig["ECU_ACCESS"]="ALLOWED"
-XCPConfig["XCP_READ_ACCESS"]="NOT ALLOWED"
-XCPConfig["XCP_WRITE_ACCESS"]="ALLOWED"
-XCPConfig["DAQ_SUPPORT"]=false
+
+XCPConfig1=Hash.new
+
+XCPConfig1["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
+XCPConfig1["ECU_ACCESS"]="ALLOWED"
+XCPConfig1["XCP_READ_ACCESS"]="NOT ALLOWED"
+XCPConfig1["XCP_WRITE_ACCESS"]="ALLOWED"
+XCPConfig1["DAQ_SUPPORT"]=false
+
+
+
 A2L.Generate
