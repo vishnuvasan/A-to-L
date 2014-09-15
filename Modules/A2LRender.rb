@@ -46,6 +46,13 @@ module A2LRender
     return Mustache.render(A2LRender._to_s(inputs))
 end
 
+
+def A2LRender._CANAPEIni()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "CANAPE-Ini-Vector.mustache"
+  return Mustache.render()
+end
+
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))

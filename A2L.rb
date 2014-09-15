@@ -20,6 +20,10 @@ module A2L
       puts A2LRender._XCPConf(XCPConfig)
     end
 
+    if defined? CANAPEIni then
+      puts A2LRender._CANAPEIni()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

@@ -1,0 +1,13 @@
+/*********************************************************/
+/*   CANape.ini for Vector                               */
+/*********************************************************/
+
+"CANAPE_INI" taggedstruct {
+  block "TP_BLOB" taggedstruct {
+    ("PARAMETER" struct {
+        char[50];     /* Kategorie */
+        char[50];     /* Name des Parameters */
+        char[256];    /* Wert des Parameters */
+    })*;
+  };
+};
