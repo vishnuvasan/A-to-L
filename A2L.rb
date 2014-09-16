@@ -44,6 +44,10 @@ module A2L
       puts A2LRender._ETK_ETAS()
     end
 
+    if defined? CCP_Visu then
+      puts A2LRender._CCP_Visu()
+    end
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

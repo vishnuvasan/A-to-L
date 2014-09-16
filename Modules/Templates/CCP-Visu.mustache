@@ -1,0 +1,54 @@
+        
+        /************************************CCP VISU*************************************************************/
+        
+        /begin IF_DATA VISU_CCP
+            ECU_NB                  1                           /* ECU Number 1=DDS                               */
+            PROTOCOL                "CCP_2.1"                   /* Protocol Issue                                 */
+            PROTOCOL_DISPLAY        "CCP DC"                    /* Protocol name to be displayed                  */
+            BAUD_RATE               500                         /*  500 Mbits                                     */
+            SESSION_PROTECTED       3                           /* 0 = not protected                              */
+            SEED_KEY                "DC_DEV.dll"                /* used to unlock session                         */
+            NB_DAQ_LIST             2                           /* Nb of DAQ                                      */
+
+            DAQ0_SHORT_NAME         "Time_base_10ms"
+            DAQ0_CAN_ID             0x748                       /* Id Can for VISU DAQ data reception             */
+            DAQ0_EVENT_CHANNEL      0                           /* ECU event channel for transmission             */
+            DAQ0_TYPE               "ASynchro"                  /* ASynchro ==> time base  Synchro ==> Engine Rev */
+            DAQ0_PERIOD             10                          /* Period DAQ0 ( ms)                              */
+            DAQ0_NB_OF_ODT          32                          /* Number of ODT for DAQ0                         */
+
+            DAQ1_SHORT_NAME         "Time_base_100ms"
+            DAQ1_CAN_ID             0x610                       /* Id Can for VISU DAQ data reception             */
+            DAQ1_EVENT_CHANNEL      1                           /* ECU event channel for transmission             */
+            DAQ1_TYPE               "ASynchro"                  /* ASynchro ==> time base  Synchro ==> Engine Rev */
+            DAQ1_PERIOD             100                         /* Period DAQ1 ( ms)                              */
+            DAQ1_NB_OF_ODT          32                          /* Number of ODT for DAQ1                         */
+
+            DAQ2_SHORT_NAME         "Eng_rev_synch" 
+            DAQ2_CAN_ID             0x618                       /* Id Can for VISU DAQ data reception             */
+            DAQ2_EVENT_CHANNEL      1                           /* ECU event channel for transmission             */
+            DAQ2_TYPE               "Synchro"                   /* ASynchro ==> time base  Synchro ==> Engine Rev */
+            DAQ2_PERIOD             0                           /* Period DAQ1 ( ms)                              */
+            DAQ2_NB_OF_ODT          32                          /* Number of ODT for DAQ1                         */
+
+            STATION_NUMBER          200                         /* Station Nb for connect                         */
+            TRANSMIT_ID             0x74A                       /* CAN Id used by  VISU for message transmission  */
+            RECEIVE_ID              0x4A9                       /* CAN Id used by VISU for  message reception     */
+            TIMER_SOURCE            "HWI_One_millisecond_clock" /* Measurement that describes the ECU clock       */
+            TIMER_SOURCE_MIN        0x00
+            TIMER_SOURCE_MAX        0xFFFFFFFF
+            BUILD_ARRAY             1                           /* Contruct tables from expanded arrays */
+            ARRONDI                 1                           /* type arrondi                         */
+            ROM_ID_VERSION          2                           /* ROM ID Type                          */
+            ROM_ID_SOURCE           "APP_PROM_ID_APV"           /* ROM ID Symbol                        */
+            FAULT_VERSION           3                           /* Fault layout version                 */
+            FAULT_SOURCE            "F_M_Fault_flag_number"     /* Soft fault table                     */
+            FAULT_BITMASK_SOFT      0x0100                      /* Masque définissant le bit à tester pour le type de Faute "Soft"     */
+            FAULT_BITMASK_RECOVERY  0x0800                      /* Masque définissant le bit à tester pour le type de Faute "Recovery" */
+            FAULT_BITMASK_LATCHED   0x0400                      /* Masque définissant le bit à tester pour le type de Faute "Latched"  */
+
+            PAGE_ROM                1                           /* ROM page number                      */
+            PAGE_RAM                0                           /* RAM page number                      */
+
+        /end IF_DATA
+

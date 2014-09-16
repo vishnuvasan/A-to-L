@@ -78,6 +78,11 @@ def A2LRender._ETK_ETAS()
   return Mustache.render()
 end
 
+def A2LRender._CCP_Visu()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "CCP-Visu.mustache"
+  return Mustache.render()
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
