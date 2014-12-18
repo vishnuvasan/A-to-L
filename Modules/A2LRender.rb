@@ -93,6 +93,11 @@ def A2LRender._ASAP1B_CCP()
   return Mustache.render()
 end
 
+def A2LRender._CANAPE_Create_Ini()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "CANAPE-Create-Ini.mustache"
+  return Mustache.render()
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))

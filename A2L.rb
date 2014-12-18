@@ -56,6 +56,10 @@ module A2L
       puts A2LRender._ASAP1B_CCP()
     end        
 
+    if defined? CANAPE_Create_Ini then
+      puts A2LRender._CANAPE_Create_Ini()
+    end        
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end

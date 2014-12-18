@@ -198,5 +198,6 @@ ETK_ETAS=true
 CCP_Visu=true
 ASAP1B_KW2000=true
 ASAP1B_CCP=true
+CANAPE_Create_Ini=true
 
 A2L.Generate
