@@ -196,5 +196,6 @@ CANAPE_KWP_On_CAN=true
 KWP2000_ETAS=true
 ETK_ETAS=true
 CCP_Visu=true
+ASAP1B_KW2000=true
 
 A2L.Generate
