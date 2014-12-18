@@ -48,6 +48,10 @@ module A2L
       puts A2LRender._CCP_Visu()
     end
 
+    if defined? ASAP1B_KW2000 then
+      puts A2LRender._ASAP1B_KW2000()
+    end    
+
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
   	end
