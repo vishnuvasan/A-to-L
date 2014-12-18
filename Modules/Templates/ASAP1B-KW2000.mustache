@@ -1,0 +1,156 @@
+    /begin IF_DATA ASAP1B_KWP2000                          /* Definition for KWP2000 on CAN and K-Line         */
+    
+        /begin SOURCE                              
+                "Block 60 ms"                              /* Name of raster                                   */
+              4                                    /* Scaling Unit: 4 = 10 ms                          */
+              60                                   /* Factor                                           */
+                                   
+                                   
+           /begin QP_BLOB                                  /* QP-BLOB includes special info about              */
+                                       /* measure sampling rate                            */
+                     CAN                               /* availability of this raster : K-line, CAN or both*/
+            BLOCKMODE                                  /* Measurement mode of ECU: Blockmode               */
+                     0xf0                              /* Block mode: local identifier                     */
+                     20                                /* max. number of signals                           */
+                     50                                /* max. number of bytes                             */
+                     0x711                             /* CAN-Id for EUDTP frames                          */
+                 20                                /* discriminator if CAN-id shared                   */
+           /end QP_BLOB
+          
+        /end SOURCE
+     
+           /begin SOURCE                              
+               
+               "Free running 20 ms"                        /* Name of raster                                   */
+              4                                    /* Scaling Unit: 4 = 10 ms                          */
+              20                                   /*                                                  */
+                                   /*                                                  */
+           /begin QP_BLOB                              /* QP-BLOB includes special info about              */
+                                   /* measure sampling rate                            */
+               CAN                                 /* availability of this raster : K-line, CAN or both*/
+               FREERUNNINGMODE                     /* Measurement mode of ECU:                         */
+                 0xf1                              /* Freerunning mode: local identifier               */
+                 20                                /* max. number of signals                           */
+                 50                                /* max. number of bytes                             */
+                 0x711                             /* CAN-Id for EUDTP frames                          */
+                 20                                /* discriminator if CAN-id shared                   */
+               /end QP_BLOB
+              
+           /end SOURCE
+     
+           /begin SEED_KEY
+                     ""                            /* name of Seed&Key DLL for application, incl. path and extension */
+                     
+               /end SEED_KEY
+     
+               /begin TP_BLOB                              /* TP-Blob includes general information             */
+                                   /* for the ASAP1b driver                            */
+              0x0200                               /* blob version                                     */         
+              VDA_1996                             /* KWP2000 version                                  */
+              MSB_LAST                             /* byte order in measurements and characteristics   */
+     
+              /begin K_LINE
+                 
+                  WuP                          /* stimulation mode of ECU: WuP                     */
+                  0x12                         /* ECU address on k line                            */
+                  0xF1                         /* required tester address                          */
+              
+              /end K_LINE
+       
+              /begin CAN
+                  500000                       /* Baudrate [Hz]                                    */
+                  70                           /* Sample point [% complete bit time]               */
+                  1                            /* 1 or 3 samples per bit                           */
+                  16                           /* BTL_CYCLES [slots/bit time]                      */
+                  2                            /* SJW length synchr. segm. In BTL_CYCLES           */
+                  0                            /* SYNC_EDGE                                        */
+     
+                  /begin ADDRESS
+                  
+                      0x7E8                /* CAN_ID ECU (gateway)à INCA                       */
+                      0x7E0                /* CAN_ID INCA à ECU (gateway)                      */
+                                      
+                  /end ADDRESS
+     
+                  NETWORK_LIMITS
+                      10                   /* WFT_MAX                                          */
+                          0x500                /* XDL_MAX                                          */
+     
+                  START_STOP     
+                      0x05                 /* Start_stop FREE_RUNNING : routine number         */
+     
+              /end CAN
+        
+                      /begin DIAG_BAUD
+                      
+                          10400                /* BaudRate                                         */
+                          0x85                 /* DiagnosticMode                                   */
+                          
+                      /end DIAG_BAUD
+     
+                      /begin TIME_DEF  
+                                       /* P1       P2min    P2MAX    P3min    P3MAX    P4     [ms] */
+                      KWP_TIMING              0x0014   0x0002   0x0032   0x0002   0x1388   0x0005
+                      KWP_TIMING              0x0014   0x0000   0x0014   0x0000   0x1388   0x0000
+                      
+                                   /* As       Bs       Cr       [ms]                          */
+                      USDTP_TIMING            0x03E8   0x03E8   0x03E8
+                      USDTP_TIMING            0x0100   0x0100   0x0100
+                      
+                      /end TIME_DEF
+     
+              /******************************Parameter for Seed&Key: accMode  calcmethod  delay*****************/
+                      
+              SECURITY_ACCESS      5 1 0
+     
+                   /begin COPY
+                   
+                   RAM_InitByECU               /* ECU mode for copying Flash into RAM                      */
+                                  0x86         /* diagnostic mode for copying Flash into RAM               */
+                  
+                   COPY_PARA 1                 /* list of add. parameters for StartDiag                    */
+              
+                   /end COPY
+     
+                   /begin FLASH
+                   
+                  AUTOFLASHBACK                /* ECU mode for copying RAM into Flash                      */
+                                  3            /* No of local routine for copy RAM into Flash              */
+                  RequestRoutineResults        /* result of copy routine delivered by                      */
+                  COPY_FRAME 1                 /* list of page frames to be copied                         */
+                  RNC_RESULT 0x23 0xfb 0xfc    /* only at 'RequestRoutineResults':                         */
+                                   /* result codes, that sign 'copy in progress'               */
+                   /end FLASH
+     
+                   /begin CHECKSUM
+                   0x010201                    /* check sum type qualifier (see table)                     */
+                   1                           /* 1: check sum calculation only on active page             */
+                   1                           /* No of local routine for checksum                         */
+                   RequestRoutineResults       /* result of checksum routine delivered by                  */
+                   RNC_RESULT 0x23             /* only at 'RequestRoutineResults':                         */
+                                   /* result codes, that sign 'calculation in progress'        */
+                   /end CHECKSUM
+     
+                   /begin PAGE_SWITCH
+                   
+                   ESCAPE_CODE                 /* type of page switching service                           */    
+                                        
+                   PAGE_CODE                      
+                              0x00         /* Reference Page                                           */             
+                              0x01         /*Working Page                                              */
+                   
+                   ESCAPE_CODE_PARA_SET    0x90
+                   ESCAPE_CODE_PARA_GET    0x91
+                   
+                   /end PAGE_SWITCH
+     
+                   DATA_ACCESS   
+                              0x000000             /* ECU address type qualifier for Flash page                */
+                              0x000000             /* ECU address type qualifier for RAMpage                   */
+                      1                    /* Flag 1: Upload from  ECU flash data possible             */
+                              0                    /* Flag 1: Verify access on ECU flash code possible         */
+                              0                    /* Flag 1: Upload from ECU flash code possible              */
+                              1                    /* Flag1: Upload and download only on active.page.          */
+           /end TP_BLOB
+     
+    /end IF_DATA
