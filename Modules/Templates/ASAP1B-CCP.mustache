@@ -1,0 +1,183 @@
+    /begin IF_DATA ASAP1B_CCP                          /* specific definition for CCP              */
+
+        /begin SOURCE                                  /* Description of a DAQ                     */
+                               /* (Data Acquisition List)                  */
+        "10ms"                                     /* Name                                     */
+        4                                          /* Source period duration code scaled in    */ 
+                               /* "CSE"  4  =  10ms                        */
+
+        1                                          /* Time factor : 1 x 10ms = 10ms            */
+        DISPLAY_IDENTIFIER  "_10MS" 
+        /begin QP_BLOB                             /* The QP-BLOB specifies the behavior of    */
+                               /* the corresponding DAQ-List               */
+           0                                       /* Number of DAQ-list                       */
+           LENGTH 32                               /* Number of ODT's, which can be in-        */
+                               /* serted to this DAQ                       */
+           CAN_ID_FIXED 0x748                      /* CAN-ID for measuring this DAQ            */
+           RASTER 1                                /* ECU event-number according to event-     */
+                               /* number by the keyword RASTER.            */
+                               /* Must be defined, but is not supported    */
+                               /* by ETAS yet.                             */
+           FIRST_PID 00                            /*first PID of This DAQ                     */
+        /end QP_BLOB
+        /end SOURCE
+
+
+        /begin SOURCE                                  /* Description of a DAQ                     */
+                               /* (Data Acquisition List)                  */
+        "Segment"                                  /* Name                                     */
+        103                                        /* Source period duration code scaled in    */ 
+                               /* "CSE"  103  =   cylinder segment         */
+
+        1                                          /* Rate in Scaling Unit: 1                  */
+        DISPLAY_IDENTIFIER  "SEG" 
+        /begin QP_BLOB                             /* The QP-BLOB specifies the behavior of    */
+                               /* the corresponding DAQ-List               */
+           2                                       /* Number of DAQ-list                       */
+           LENGTH 32                               /* Number of ODT's, which can be in-        */
+                               /* serted to this DAQ                       */
+           CAN_ID_FIXED 0x618                      /* CAN-ID for measuring this DAQ            */
+           RASTER 2                                /* ECU event-number according to event-     */
+                               /* number by the keyword RASTER.            */
+                               /* Must be defined, but is not supported    */
+                               /* by ETAS yet.                             */
+           FIRST_PID 0xa0                          /*first PID of This DAQ                     */
+        /end QP_BLOB
+        /end SOURCE
+
+
+        /begin SOURCE                                  /* Description of a DAQ                     */
+                               /* (Data Acquisition List)                  */
+        "Display"                                  /* Name                                     */ 
+        4                                          /* Source period duration code scaled in    */ 
+                               /* "CSE"  4  =  10ms                        */
+        10                                         /* Time factor : 10 x 10ms = 100ms          */
+        DISPLAY_IDENTIFIER  "DISP" 
+        /begin QP_BLOB                             /* The QP-BLOB specifies the behavior of    */
+                               /* the corresponding DAQ-List               */
+           1                                       /* Number of DAQ-list                       */
+           LENGTH 32                               /* Number of ODT's, which can be in-        */
+                               /* serted to this DAQ                       */
+           CAN_ID_FIXED 0x610                      /* CAN-ID for measuring this DAQ            */
+           RASTER 3                                /* ECU event-number according to event-     */
+                               /* number by the keyword RASTER.            */
+                               /* Must be defined, but is not supported    */
+                               /* by ETAS yet.                             */
+           FIRST_PID 0x50                          /*first PID of This DAQ                     */
+        /end QP_BLOB
+        /end SOURCE
+
+
+        /begin RASTER                                  /* ECU-event specification                  */
+        "10ms"                                     /* Name of the ECU-event                    */
+        "10ms"                                     /* Shortname                                */
+        1                                          /* Number of ECU-event                      */
+        4                                          /* Source period duration code scaled in    */ 
+                               /* "CSE"  4  =   10ms                       */
+        1                                          /* Time factor : 1 x 10ms = 10ms            */
+                               /* look at ASAP1b Spezifikation             */
+        /end RASTER
+
+        /begin RASTER                                  /* ECU-event specification                  */
+        "Segment"                                  /* Name of the ECU-event                    */
+        "SEG"                                      /* Shortname                                */
+        2                                          /* Number of ECU-event                      */
+        103                                        /* Source period duration code scaled in    */ 
+                               /* "CSE"  103  =   cylinder segment         */
+        1                                          /* Time factor : 1                          */
+                               /* look at ASAP1b Spezifikation             */
+
+        /end RASTER
+
+        /begin RASTER                                  /* ECU-event specification                  */
+        "Display"                  /* Name of the ECU-event                */
+        "DISP"                                     /* Shortname                                */                           
+        3                                          /* Number of ECU-event                      */
+        4                                          /* Source period duration code scaled in    */ 
+                               /* "CSE"  4  =   10ms                       */
+        10                                         /* Time factor : 10 x 10ms = 10ms           */
+                               /* look at ASAP1b Spezifikation             */
+        /end RASTER
+
+
+        /begin EVENT_GROUP
+        "Segment" 
+        "SEG" 
+        RASTER 5 
+        /end EVENT_GROUP
+
+
+        /begin SEED_KEY
+        "DC_DEV.DLL"                           /*Seed Key DLL file   DC.DLL  for mesurement        */
+        "DC_DEV.DLL"                   /*Seed Key DLL file   DC.DLL  for calibration       */
+        ""                             /*Seed Key DLL file   DC.DLL  for flash programming */
+
+        /end SEED_KEY
+
+
+        /begin TP_BLOB                                 /* This BLOB describes all parameters   */
+                               /* that are necessary for CAN-timing and*/
+                               /* ECU-calibration-technics             */
+        0x0201                                     /* CCP-Version V2.1 => 0x0201           */
+                               /*             V2.0 => 0x0200           */
+        0x0202                                     /* BLOB-Version V2.2 => 0x0202          */
+        0x074A                                     /* CAN-ID  INCA -> ECU                  */
+        0x04A9                                     /* CAN-ID  ECU -> INCA                  */
+        0x0001                                     /* ECU CCP-Address                      */
+        2                                          /* Byte-order: 1 - High-Byte-First (MOT)*/
+                               /*             2 - Low-Byte-First(INTEL)*/
+        BAUDRATE 500000                            /* CAN-Baudrate in kBd: 0x01F4 = 500 kBd*/
+        SAMPLE_POINT 75                   
+        DAQ_MODE BURST                    
+        CONSISTENCY DAQ                   
+
+        /begin CHECKSUM_PARAM 
+            0x8006                                 /* Checksumalgorithm:                   */
+                               /* 0x8009 - M_32_BIT_BY_CRC32           */
+                               /* 0x8006 - M_16_BIT_BY_CRC16           */
+                               /* 0x4000 - command syntax of CCP V2.1  */
+            0x001000                               /* max. checksum-length in ECU          */
+            CHECKSUM_CALCULATION ACTIVE_PAGE       /* Checksum-calculation on activ-page   */
+        /end CHECKSUM_PARAM 
+
+        STORE_SUPPORTED 
+        RESUME_SUPPORTED 
+
+        /begin DEFINED_PAGES                       /* Description of the memory-page       */
+            1                                      /* Logical-page-number                  */
+            "Reference Page"                       /* Name of page                         */
+            1                                      /* Address-Extension                    */
+                               /* (only low-byte sgnificant)           */
+            0xa001C000                             /* Address of Memorypage                */
+            0x000E4000                             /* Memorysize                           */
+            FLASH                                  /* Memorytype                           */
+
+        /end DEFINED_PAGES
+
+        /begin DEFINED_PAGES                       /* Description of the memory-page       */
+            2                                      /* Logical-page-number                  */
+            "Working Page"                         /* Name of page                         */
+            0                                      /* Address-Extension                    */
+                               /* (only low-byte sgnificant)           */
+            0xa001C000                             /* Address of Memorypage                */
+            0x000E4000                             /* Memorysize                           */
+            RAM                                    /* Memorytype                           */
+            RAM_INIT_BY_ECU                        /* init type*/
+            DEFAULT 
+        /end DEFINED_PAGES
+
+        OPTIONAL_CMD 0x05                          /* optional CCP-command of the ECU      */
+        /* OPTIONAL_CMD 0x08                          optional CCP-command of the ECU      */
+        /* OPTIONAL_CMD 0x09                          optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x0C                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x0D                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x0E                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x0F                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x11                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x12                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x13                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x21                          /* optional CCP-command of the ECU      */
+        OPTIONAL_CMD 0x23                          /* optional CCP-command of the ECU      */
+        /end TP_BLOB
+
+    /end IF_DATA

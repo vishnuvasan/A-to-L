@@ -197,5 +197,6 @@ KWP2000_ETAS=true
 ETK_ETAS=true
 CCP_Visu=true
 ASAP1B_KW2000=true
+ASAP1B_CCP=true
 
 A2L.Generate

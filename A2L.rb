@@ -50,7 +50,11 @@ module A2L
 
     if defined? ASAP1B_KW2000 then
       puts A2LRender._ASAP1B_KW2000()
-    end    
+    end
+
+    if defined? ASAP1B_CCP then
+      puts A2LRender._ASAP1B_CCP()
+    end        
 
   	if defined? ModCommon then 
   		puts A2LRender._ModCommon(ModCommon) 
