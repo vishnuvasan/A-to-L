@@ -83,6 +83,11 @@ def A2LRender._CCP_Visu()
   return Mustache.render()
 end
 
+def A2LRender._ASAP1B_KW2000()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "ASAP1B-KW2000.mustache"
+  return Mustache.render()
+end
+
   def A2LRender._ModCommon(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "ModCommon.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
