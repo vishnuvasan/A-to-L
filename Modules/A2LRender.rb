@@ -3,6 +3,15 @@ module A2LRender
 
   Templates="/Templates/"
 
+  def A2LRender._ASAP2Version(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "ASAP2-Version.mustache"
+    for key in inputs.keys
+      #Remove the Decimal Dot with a Space
+      inputs[key]=(inputs[key].to_s).sub('.',' ')
+    end
+    return Mustache.render(A2LRender._to_s(inputs))
+  end
+
   def A2LRender._Header(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "Header.mustache"
     return Mustache.render(A2LRender._to_s(inputs))

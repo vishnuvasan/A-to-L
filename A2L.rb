@@ -8,6 +8,10 @@ module A2L
 
   def A2L.Generate
   	
+    if defined? ASAP2_Version then
+      puts A2LRender._ASAP2Version(ASAP2_Version)
+    end
+
   	if defined? Header then 
   		puts A2LRender._Header(Header) 
   	end
