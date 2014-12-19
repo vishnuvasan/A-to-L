@@ -9,7 +9,7 @@ module A2LRender
       #Remove the Decimal Dot with a Space
       inputs[key]=(inputs[key].to_s).sub('.',' ')
     end
-    return Mustache.render(A2LRender._to_s(inputs))
+    return Mustache.render(inputs)
   end
 
   def A2LRender._Header(inputs)
