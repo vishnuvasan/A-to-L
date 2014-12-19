@@ -17,12 +17,16 @@ module A2LRender
     return Mustache.render(A2LRender._to_s(inputs))
   end
 
+  def A2LRender._Begin_A2ML()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Begin-A2ML.mustache"
+    return Mustache.render()
+  end
+
   def A2LRender._CCPConf(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "CCP-Configuration.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
 
   end
-
 
   def A2LRender._XCPConf(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "XCP-Configuration.mustache"
@@ -81,9 +85,18 @@ def A2LRender._KWP2000_ETAS()
   return Mustache.render()
 end
 
-
 def A2LRender._ETK_ETAS()
   Mustache.template_file=File.dirname(__FILE__) + Templates + "ETK-ETAS.mustache"
+  return Mustache.render()
+end
+
+def A2LRender._End_A2ML()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "End-A2ML.mustache"
+  return Mustache.render()
+end
+
+def A2LRender._Visu_Package_Info()
+  Mustache.template_file=File.dirname(__FILE__) + Templates + "Visu-Package-Info.mustache"
   return Mustache.render()
 end
 

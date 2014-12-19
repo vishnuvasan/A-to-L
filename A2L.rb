@@ -5,6 +5,9 @@ module A2L
   require "mustache"
   require File.dirname(__FILE__) + Modules + "A2LRender.rb"
 
+  Begin_A2ML=true
+  End_A2ML=true
+
 
   def A2L.Generate
   	
@@ -15,6 +18,10 @@ module A2L
   	if defined? Header then 
   		puts A2LRender._Header(Header) 
   	end
+
+    if defined? Begin_A2ML then
+      puts A2LRender._BeginA2ML
+    end
 
     if defined? CCPConfig then
       puts A2LRender._CCPConf(CCPConfig)
@@ -46,6 +53,14 @@ module A2L
 
     if defined? ETK_ETAS then
       puts A2LRender._ETK_ETAS()
+    end
+
+    if defined? End_A2ML then
+      puts A2LRender._End_A2ML()
+    end
+
+    if defined? Visu_Package_Info then
+      puts A2LRender._Visu_Package_Info()
     end
 
     if defined? CCP_Visu then
