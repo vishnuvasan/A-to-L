@@ -199,7 +199,7 @@ CCP_Visu=true
 ASAP1B_KW2000=true
 ASAP1B_CCP=true
 CANAPE_Create_Ini=true
-Visu_Package_Info=true
+Visu_Package_Info={"PACKAGE_INFORMATION"=>"VMH7B000_DELIV_3"}
 
 ASAP2_Version={"ASAP2_VERSION"=>1.56}
 

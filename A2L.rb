@@ -70,7 +70,7 @@ module A2L
     end
 
     if defined? Visu_Package_Info then
-      puts A2LRender._Visu_Package_Info()
+      puts A2LRender._Visu_Package_Info(Visu_Package_Info)
     end
 
     if defined? CCP_Visu then

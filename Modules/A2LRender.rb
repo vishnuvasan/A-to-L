@@ -105,9 +105,9 @@ def A2LRender._End_A2ML()
   return Mustache.render()
 end
 
-def A2LRender._Visu_Package_Info()
+def A2LRender._Visu_Package_Info(inputs)
   Mustache.template_file=File.dirname(__FILE__) + Templates + "Visu-Package-Info.mustache"
-  return Mustache.render()
+  return Mustache.render(A2LRender._to_s(inputs))
 end
 
 def A2LRender._CCP_Visu()
