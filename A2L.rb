@@ -20,7 +20,7 @@ module A2L
   	end
 
     if defined? Begin_A2ML then
-      puts A2LRender._BeginA2ML
+      puts A2LRender._Begin_A2ML()
     end
 
     if defined? CCPConfig then
