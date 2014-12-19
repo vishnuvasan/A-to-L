@@ -12,6 +12,16 @@ module A2LRender
     return Mustache.render(inputs)
   end
 
+  def A2LRender._Begin_Project(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Begin-Project.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+  end
+
+  def A2LRender._Begin_Module(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Begin-Module.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+  end
+
   def A2LRender._Header(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "Header.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
@@ -310,6 +320,16 @@ end
     end
     return total
   end  
+
+  def A2LRender._End_Module()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "End-Module.mustache"
+    return Mustache.render()
+  end 
+
+  def A2LRender._End_Project()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "End-Project.mustache"
+    return Mustache.render()
+  end
 
   def A2LRender._to_s(inputs)
     for key in inputs.keys

@@ -7,12 +7,22 @@ module A2L
 
   Begin_A2ML=true
   End_A2ML=true
+  End_Project=true
+  End_Module=true
 
 
   def A2L.Generate
   	
     if defined? ASAP2_Version then
       puts A2LRender._ASAP2Version(ASAP2_Version)
+    end
+
+    if defined? Project then
+      puts A2LRender._Begin_Project(Project)
+    end
+
+    if defined? Module then
+      puts A2LRender._Begin_Module(Module)
     end
 
   	if defined? Header then 
@@ -94,6 +104,14 @@ module A2L
   	if defined? CompuMethod then 
   		puts A2LRender._CompuMethod(CompuMethod) 
   	end
+
+    if defined? End_Module then
+      puts A2LRender._End_Module()
+    end
+
+    if defined? End_Project then
+      puts A2LRender._End_Project()
+    end
   	
   end
 

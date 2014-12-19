@@ -203,4 +203,14 @@ Visu_Package_Info=true
 
 ASAP2_Version={"ASAP2_VERSION"=>1.56}
 
+Project={
+	"NAME"=>"SAMPLE Project",
+	"DESCRIPTION"=>"I dont know what to give as the description of this project"
+}
+
+Module={
+	"NAME"=>"SAMPLE Module",
+	"DESCRIPTION"=>"I dont know what to give as the description of this Module"
+}
+
 A2L.Generate
