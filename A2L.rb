@@ -10,7 +10,7 @@ module A2L
   End_Project=true
   End_Module=true
   XCP_Interface_Configuration=true
-
+  End_ModPar=true
 
   def A2L.Generate
   	
@@ -137,6 +137,11 @@ module A2L
     if defined? Mod_Par then
       puts A2LRender._Begin_ModPar(Mod_Par)
     end
+
+    if defined? End_ModPar then
+      puts A2LRender._End_ModPar()
+    end
+
   end
 
 end

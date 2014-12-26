@@ -383,4 +383,9 @@ end
     return Mustache.render(A2LRender._to_s(inputs))
   end
 
+  def A2LRender._End_ModPar()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "End-ModPar.mustache"
+    return Mustache.render()
+  end
+
 end
