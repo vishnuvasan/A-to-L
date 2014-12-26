@@ -285,4 +285,48 @@ for i in 1..5
  Code_Memory["PAGE1"]="0x0"
  Code_Memory["PAGE2"]="0x1"
 
+
+ Raster=Hash.new
+ for i in 1..5
+  Raster_Details=Hash.new
+  Raster_Details["PROCESS"]="Raster_Number_" + i.to_s
+  Raster_Details["CSE_UNIT"]=(i+1).to_s
+  Raster_Details["MINIMAL_PERIOD_NUMBER"]=(i+2).to_s
+  Raster_Details["VERSION_NUMBER"]="0x010" + (i+3).to_s
+  Raster_Details["HW_TRIGGER_NUMBER"]=(i+4).to_s
+  Raster_Details["DIRECTION_MODE"]="DIRECT"
+  Raster_Details["RASTER_PRIORITY"]=(i+15).to_s
+  Raster_Details["MEASUREMENT_MODE"]="MEASUREMENT"
+  Raster_Details["TRIGGER_ADDRESS"]="0xa0a00D10" + i.to_s
+  Raster_Details["DISPLAY_MAX_SIZE"]="0x120" + i.to_s
+  Raster_Details["DISPLAY_START_ADDRESS"]="0xa0a01200" + i.to_s
+  Raster_Details["DISPLAY_OUTPUT_ADDRESS"]="0xa0a00200" + i.to_s
+  Raster_Details["BYPASS_MAX_SIZE"]=(i-1).to_s
+  Raster_Details["BYPASS_START_ADDRESS"]="0x0" + i.to_s
+  Raster_Details["BYPASS_OUTPUT_ADDRESS"]="0x0" + i.to_s
+  Raster_Details["WORST_CASE_RASTER_TIME"]=5000
+  Raster_Details["MAX_READ_VARIABLES"]="0x7E" + i.to_s
+  Raster_Details["MAX_WRITE_VARIABLES"]="0x0" + i.to_s
+  Raster[i]=Raster_Details
+ end
+
+ Blob=Hash.new
+ Blob["VERSION"]="0x1000102"
+ Blob["INTERFACE_SPEED"]="INTERFACE_SPEED_8MBIT"
+ Blob["RESET_CFG"]="0xFFFFFFFF"
+ Blob["DISPLAY_TABLE_TYPE"]="0xD"
+ Blob["DISPLAY_TABLE_DATATYPE"]="0x0122"
+ Blob["BYTE_ORDER"]="0x2"
+ Blob["TRIGGER_SEGMENT_ADDR"]="0xa0a00C00"
+ Blob["TRIGGER_CONFIGURATION"]="0x01020200"
+ Blob["TRG_MOD_ID"]="0x0"
+ Blob["TRIG_MOD"]="0xFF 0x0 0x0"
+ Blob["ETK_CONF"]="0x10 0x07 0x43 0x00 0x14 0xFF 0xFF"
+ Blob["START_ADDR"]="0xa0a00000"
+ Blob["LENGTH"]="0x003000"
+ Blob["LOCATION"]="EXTERN"
+ Blob["APPLICATION"]="MEASUREMENT"
+ Blob["USAGE"]="CHECKSUM_EXCLUDE_ONLY"
+ Blob["OFFSET_ADDR"]="-1 -1 -1 -1 -1"
+
 A2L.Generate

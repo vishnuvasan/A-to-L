@@ -1,0 +1,25 @@
+          
+          /* Raster Details for {{PROCESS}} */
+
+            /begin SOURCE
+               "{{PROCESS}}"                      /* Source name                                                             */
+                {{CSE_UNIT}}                      /* CSE unit according to ASAP 1B                                           */
+                {{MINIMAL_PERIOD_NUMBER}}         /* Minimal period number measured in the CSE unit                          */
+              
+               QP_BLOB
+                    {{VERSION_NUMBER}}            /* version number, current is 0x100 in AML V 1.2                           */
+                    {{HW_TRIGGER_NUMBER}}         /* HW trigger number,                                                      */
+                    {{DIRECTION_MODE}}}           /* "DIRECT" = 1, "INDIRECT" = 2                                            */
+                    {{RASTER_PRIORITY}}           /* raster priority 1..32, higher number = higher priority                  */
+                    {{MEASUREMENT_MODE}}          /* "MEASUREMENT" = 0, "BYPASS" = 1                                         */
+                    {{TRIGGER_ADDRESS}}           /* TRGID_A/B/C/S/X - address of trigger ID, only used if INDIRECT trigger  */
+                    {{DISPLAY_MAX_SIZE}}          /* Max length of display table in bytes                                    */
+                    {{DISPLAY_START_ADDRESS}}     /* DISTAB_A/B/C/S/X - Start address of display table                       */
+                    {{DISPLAY_OUTPUT_ADDRESS}}    /* CHNL_A/B/C/S/X   - Output address of display table                      */
+                    {{BYPASS_MAX_SIZE}}           /* Max size of bypass recieve table (not used for Inca)                    */
+                    {{BYPASS_START_ADDRESS}}      /* Start address of bypass table                                           */
+                    {{BYPASS_OUTPUT_ADDRESS}}     /* Output address of bypass table                                          */
+                    {{WORST_CASE_RASTER_TIME}}    /* worst case minimum raster time in us                                    */
+                    {{MAX_READ_VARIABLES}}        /* max Read variables                                                      */
+                    {{MAX_WRITE_VARIABLES}}       /* max Write variables                                                     */
+            /end SOURCE

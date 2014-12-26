@@ -146,6 +146,22 @@ module A2L
       puts A2LRender._Code_Memory(Code_Memory)
     end
 
+    if defined? Raster then
+      puts A2LRender._Raster(Raster)
+    end
+
+    if defined? Blob then
+      puts A2LRender._Blob(Blob)
+    end
+
+    if defined? Begin_ETK then
+      puts A2LRender._Begin_ETK()
+    end
+
+    if defined? End_ETK then
+      puts A2LRender._End_ETK()
+    end
+
   end
 
 end

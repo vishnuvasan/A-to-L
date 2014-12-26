@@ -1,0 +1,34 @@
+            /begin TP_BLOB                              /* TP_ Binary Large OBject: Specific interface definition                        */
+
+                {{VERSION}}                             /* Version number of the TP_BLOB - Uppermost byte is always <>0 others don't care */
+                {{INTERFACE_SPEED}}                     /*comm speed,  INTERFACE_SPEED_8MBIT, INTERFACE_SPEED_100MBIT */              
+                {{RESET_CFG}}                           /* RESET_CFG: Parameter only for PPC family CPU                                  */
+
+                /begin DISTAB_CFG  
+                    {{DISPLAY_TABLE_TYPE}}              /* DSPTAB  : Type of display table - 0xD recommended (12,11,20 only for old project)*/
+                    {{DISPLAY_TABLE_DATATYPE}}          /* DAT_MOD : Data type of display table (1=byte, 2=word) 01 for distab 13           */
+                                 /*           Additionnal code depending on bus width - cf                           */
+                                 /*           2 : Bus 32 bit                                                         */
+                                 /*           2 : Buss access 32 bit                                                 */
+                    {{BYTE_ORDER}}                      /* REF     : Byte order (1=high first, 2=low first)                                 */
+                    {{TRIGGER_SEGMENT_ADDR}}            /* TRGSEGAD: Trigger segment address                                                */
+                    {{TRIGGER_CONFIGURATION}}           /* TRG_CFG : Trigger configuration                                                  */
+
+                    TRG_MOD
+                        {{TRG_MOD_ID}}                  /* ID                                                                    */
+                        {{TRIG_MOD}}                    /* TRG_MOD: FF = Trig A=Sync, B=10ms, C=100ms + bypass                   */
+
+                /end DISTAB_CFG
+
+                
+                 ETK_CFG  {{ETK_CONF}}      /* Normaly defined by using ETK Tool to get ETK configuration, ETKT2.1 used as ETKT2.0               */
+
+                
+        RESERVED_DISTAB_MEMORY              /* no CRC-Check via display table please use RESERVED - Size = UnitarySize*7+8                       */
+                    {{START_ADDR}}          /* Start address                 */
+                    {{LENGTH}}              /* Length in bytes               */
+                    {{LOCATION}}            /* Location (INTERN=0, EXTERN=1) */
+                    {{APPLICATION}}         /* application */   
+                    {{USAGE}}               /* usage*/
+                    {{OFFSET_ADDR}}         /* Offset address                */
+            /end TP_BLOB

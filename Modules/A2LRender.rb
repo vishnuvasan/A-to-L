@@ -393,4 +393,28 @@ end
     return Mustache.render()
   end
 
+  def A2LRender._Raster(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Raster.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
+  def A2LRender._Blob(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Blob.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+  end
+
+  def A2LRender._Begin_ETK()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Begin-ETK.mustache"
+    return Mustache.render()
+  end 
+
+  def A2LRender._End_ETK()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "End-ETK.mustache"
+    return Mustache.render()
+  end  
+
 end
