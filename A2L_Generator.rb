@@ -365,4 +365,23 @@ for i in 101..145
   Measurement_BitMask[i]=Meas_Details
 end
 
+Measurement_Array=Hash.new
+
+for i in 251..300
+  Meas_Details=Hash.new
+  Meas_Details["NAME"]="Measurement_Name_" + i.to_s
+  Meas_Details["DESCRIPTION"]="This is a Sample Description for this Compu Method_" + i.to_s
+  Meas_Details["DATATYPE"]="UBYTE"
+  Meas_Details["COMPU_METHOD"]="I_DONT_KNOW"
+  Meas_Details["RESOLUTION"]=(i-1).to_s
+  Meas_Details["ACCURACY"]=(i-1).to_s
+  Meas_Details["MIN_VALUE"]=(i-45).to_s
+  Meas_Details["MAX_VALUE"]=(i+45).to_s
+  Meas_Details["ECU_ADDR"]="0xD0015B52"
+  Meas_Details["FORMAT"]="%5.0"
+  Meas_Details["ARRAY_SIZE"]=(i+15).to_s  
+  Measurement_Array[i]=Meas_Details
+end
+
+
 A2L.Generate

@@ -169,6 +169,11 @@ module A2L
     if defined? Measurement_BitMask then
       puts A2LRender._Measurement_BitMask(Measurement_BitMask)
     end
+
+    if defined? Measurement_Array then
+      puts A2LRender._Measurement_Array(Measurement_Array)
+    end
+
   end
 
 end
