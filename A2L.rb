@@ -117,6 +117,14 @@ module A2L
     if defined? XCP_Interface_Configuration then
       puts A2LRender._XCP_Interface_Configuration()
     end
+
+    if defined? Data_Memory then 
+      puts A2LRender._Data_Memory(Data_Memory) 
+    end
+
+    if defined? Variable_Memory then 
+      puts A2LRender._Variable_Memory(Variable_Memory) 
+    end
   	
   end
 

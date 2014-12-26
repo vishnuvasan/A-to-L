@@ -212,5 +212,33 @@ Module={
 	"NAME"=>"SAMPLE Module",
 	"DESCRIPTION"=>"I dont know what to give as the description of this Module"
 }
+Data_Memory=Hash.new
+Variable_Memory=Hash.new
+
+for i in 1..2
+  Memory_Details=Hash.new
+  Memory_Details["NAME"]="Data Memory" + i.to_s
+  Memory_Details["DESCRIPTION"]=i.to_s + "This is a Sample Description for the Data Memory"
+  Memory_Details["MODE"]="INTERN"
+  Memory_Details["ORIGIN_ADDR"]="0x0000BB" + i.to_s
+  Memory_Details["LENGTH"]="0x0000BB" + (i+1).to_s
+  Memory_Details["MAPPING_ADDR"]="0x0000BB" + (i+2).to_s
+  Memory_Details["OFFSET_ADDR"]="-1 -1 -1 -1"
+  Memory_Details["COMMUNICATION_INTERFACE"]="ETK"
+  Data_Memory[i]=Memory_Details
+end
+
+for i in 1..2
+  Memory_Details=Hash.new
+  Memory_Details["NAME"]="Data Memory" + i.to_s
+  Memory_Details["DESCRIPTION"]=i.to_s + "This is a Sample Description for the Data Memory"
+  Memory_Details["MODE"]="INTERN"
+  Memory_Details["ORIGIN_ADDR"]="0x0000BB" + i.to_s
+  Memory_Details["LENGTH"]="0x0000BB" + (i+1).to_s
+  Memory_Details["MAPPING_ADDR"]="0x0000BB" + (i+2).to_s
+  Memory_Details["OFFSET_ADDR"]="-1 -1 -1 -1"
+  Memory_Details["COMMUNICATION_INTERFACE"]="ETK"
+  Variable_Memory[i]=Memory_Details
+end
 
 A2L.Generate
