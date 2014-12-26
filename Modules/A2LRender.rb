@@ -338,9 +338,17 @@ end
 
   def A2LRender._to_s(inputs)
     for key in inputs.keys
+      if inputs[key]==nil then
+          inputs[key]=""
+      end
       inputs[key]=inputs[key].to_s
     end
     return inputs
+  end
+
+  def A2LRender._Begin_ModPar(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Begin-ModPar.mustache"
+    Mustache.render(A2LRender._to_s(inputs))
   end
 
   def A2LRender._Data_Memory(inputs)
@@ -373,6 +381,6 @@ end
   def A2LRender._Calibration_Method(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "Calibration-Method.mustache"
     return Mustache.render(A2LRender._to_s(inputs))
-  end  
+  end
 
 end

@@ -258,4 +258,19 @@ for i in 1..5
  Calibration_Method["START_ADDR"]="0xa001C000"
  Calibration_Method["LENGTH"]="0x00124000"
 
+ Mod_Par=Hash.new
+ Mod_Par["DESCRIPTION"]=""
+ Mod_Par["INTERFACES"]=1
+ Mod_Par["VERSION"]=45
+ Mod_Par["EPK_ADDR"]="0xA001C000"
+ Mod_Par["PROJECT_NAME"]="Test Project Created using A-To-L"
+ Mod_Par["SUPPLIER_NAME"]="BOSCH"
+ Mod_Par["CUSTOMER_NAME"]="BMW"
+ Mod_Par["CUSTOMER_NUMBER"]="12345"
+ Mod_Par["USER_NAME"]="Unknown"
+ Mod_Par["USER_PHONE_NUMBER"]="Who Cares!!"
+ Mod_Par["CONTROLLER_NAME"]="Some Useless Controller"
+ Mod_Par["ECU_NAME"]="Anyways the Car will Crash"
+ Mod_Par["CALIBRATION_OFFSET"]="0x0000"
+
 A2L.Generate

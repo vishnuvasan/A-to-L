@@ -134,6 +134,9 @@ module A2L
       puts A2LRender._Calibration_Method(Calibration_Method)
     end
   	
+    if defined? Mod_Par then
+      puts A2LRender._Begin_ModPar(Mod_Par)
+    end
   end
 
 end
