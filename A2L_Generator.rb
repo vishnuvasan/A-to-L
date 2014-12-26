@@ -252,4 +252,10 @@ for i in 1..5
   # System_Constant=Memory_Details
  end
 
+ Calibration_Method=Hash.new
+ Calibration_Method["NAME"]="Test Calibration"
+ Calibration_Method["VERSION"]=32
+ Calibration_Method["START_ADDR"]="0xa001C000"
+ Calibration_Method["LENGTH"]="0x00124000"
+
 A2L.Generate

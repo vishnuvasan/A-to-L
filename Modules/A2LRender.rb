@@ -367,7 +367,12 @@ end
     for key in inputs.keys
       total+=Mustache.render(A2LRender._to_s(inputs[key]))
     end
-    return total + "hello"
+    return total
   end
+
+  def A2LRender._Calibration_Method(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Calibration-Method.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+  end  
 
 end

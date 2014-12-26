@@ -129,6 +129,10 @@ module A2L
     if defined? System_Constant then
       puts A2LRender._System_Constant(System_Constant)
     end
+
+    if defined? Calibration_Method then
+      puts A2LRender._Calibration_Method(Calibration_Method)
+    end
   	
   end
 
