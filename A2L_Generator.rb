@@ -214,6 +214,7 @@ Module={
 }
 Data_Memory=Hash.new
 Variable_Memory=Hash.new
+System_Constant=Hash.new
 
 for i in 1..2
   Memory_Details=Hash.new
@@ -240,5 +241,15 @@ for i in 1..2
   Memory_Details["COMMUNICATION_INTERFACE"]="ETK"
   Variable_Memory[i]=Memory_Details
 end
+
+for i in 1..5
+  Memory_Details=Hash.new
+  Memory_Details["NAME"]="Data Memory" + i.to_s
+  Memory_Details["VALUE"]=(i+1).to_s
+  # Memory_Details=Hash.new
+  # Memory_Details["NAME"+i.to_s]=(i+1).to_s
+  System_Constant[i]=Memory_Details
+  # System_Constant=Memory_Details
+ end
 
 A2L.Generate

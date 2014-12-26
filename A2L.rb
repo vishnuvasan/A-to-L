@@ -125,6 +125,10 @@ module A2L
     if defined? Variable_Memory then 
       puts A2LRender._Variable_Memory(Variable_Memory) 
     end
+
+    if defined? System_Constant then
+      puts A2LRender._System_Constant(System_Constant)
+    end
   	
   end
 
