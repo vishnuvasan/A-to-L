@@ -422,4 +422,22 @@ for i in 251..300
   Measurement_Virtual[i]=Meas_Details
 end
 
+Characteristic_Identical=Hash.new
+
+for i in 555..570
+  Char_Details=Hash.new
+  Char_Details["ECU_VARIABLE"]="Characteristic_Name_" + i.to_s
+  Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
+  Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
+  Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["MINIMUM"]=(i-10).to_s
+  Char_Details["MAXIMUM"]=(i+10).to_s
+  Char_Details["EXTENDED_MINIMUM"]=(i-45).to_s
+  Char_Details["EXTENDED_MAXIMUM"]=(i+45).to_s
+  Char_Details["BITMASK"]="0xD0015B52"
+  Char_Details["FORMAT"]="%5.0"
+  Char_Details["DISPLAY_IDENTIFIER"]="I DONT KNOW"
+  Characteristic_Identical[i]=Char_Details
+end
+
 A2L.Generate

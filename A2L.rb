@@ -181,6 +181,10 @@ module A2L
     if defined? Measurement_Virtual then
       puts A2LRender._Measurement_Virtual(Measurement_Virtual)
     end
+
+    if defined? Characteristic_Identical then
+      puts A2LRender._Characteristic_Identical(Characteristic_Identical)
+    end
     
   end
 

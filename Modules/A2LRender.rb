@@ -462,5 +462,13 @@ end
     return total
   end
 
+  def A2LRender._Characteristic_Identical(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-Identical.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
 
 end
