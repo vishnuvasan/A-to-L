@@ -384,4 +384,42 @@ for i in 251..300
 end
 
 
+Measurement_Matrix=Hash.new
+
+for i in 251..300
+  Meas_Details=Hash.new
+  Meas_Details["NAME"]="Measurement_Name_" + i.to_s
+  Meas_Details["DESCRIPTION"]="This is a Sample Description for this Compu Method_" + i.to_s
+  Meas_Details["DATATYPE"]="UBYTE"
+  Meas_Details["COMPU_METHOD"]="I_DONT_KNOW"
+  Meas_Details["RESOLUTION"]=(i-1).to_s
+  Meas_Details["ACCURACY"]=(i-1).to_s
+  Meas_Details["MIN_VALUE"]=(i-45).to_s
+  Meas_Details["MAX_VALUE"]=(i+45).to_s
+  Meas_Details["ECU_ADDR"]="0xD0015B52"
+  Meas_Details["FORMAT"]="%5.0"
+  Meas_Details["MATRIX_SIZE"]=(i*6).to_s 
+  Meas_Details["ROWS"]=(i*3).to_s
+  Meas_Details["COLUMNS"]=(2).to_s
+  Measurement_Matrix[i]=Meas_Details
+end
+
+Measurement_Virtual=Hash.new
+
+for i in 251..300
+  Meas_Details=Hash.new
+  Meas_Details["NAME"]="Measurement_Name_" + i.to_s
+  Meas_Details["DESCRIPTION"]="This is a Sample Description for this Compu Method_" + i.to_s
+  Meas_Details["DATATYPE"]="UBYTE"
+  Meas_Details["COMPU_METHOD"]="I_DONT_KNOW"
+  Meas_Details["RESOLUTION"]=(i-1).to_s
+  Meas_Details["ACCURACY"]=(i-1).to_s
+  Meas_Details["MIN_VALUE"]=(i-45).to_s
+  Meas_Details["MAX_VALUE"]=(i+45).to_s
+  Meas_Details["ECU_ADDR"]="0xD0015B52"
+  Meas_Details["FORMAT"]="%5.0"
+  Meas_Details["VIRTUAL_VARIABLE"]="Measurement_Name_" + (i-6).to_s 
+  Measurement_Virtual[i]=Meas_Details
+end
+
 A2L.Generate

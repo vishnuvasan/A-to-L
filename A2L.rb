@@ -174,6 +174,14 @@ module A2L
       puts A2LRender._Measurement_Array(Measurement_Array)
     end
 
+    if defined? Measurement_Matrix then
+      puts A2LRender._Measurement_Matrix(Measurement_Matrix)
+    end
+
+    if defined? Measurement_Virtual then
+      puts A2LRender._Measurement_Virtual(Measurement_Virtual)
+    end
+    
   end
 
 end

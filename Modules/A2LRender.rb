@@ -444,5 +444,23 @@ end
     return total
   end
 
+  def A2LRender._Measurement_Matrix(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Measurement-Matrix.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
+  def A2LRender._Measurement_Virtual(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Measurement-Virtual.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
 
 end
