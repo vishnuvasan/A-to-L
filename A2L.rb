@@ -9,6 +9,7 @@ module A2L
   End_A2ML=true
   End_Project=true
   End_Module=true
+  XCP_Interface_Configuration=true
 
 
   def A2L.Generate
@@ -111,6 +112,10 @@ module A2L
 
     if defined? End_Project then
       puts A2LRender._End_Project()
+    end
+
+    if defined? XCP_Interface_Configuration then
+      puts A2LRender._XCP_Interface_Configuration()
     end
   	
   end

@@ -331,6 +331,11 @@ end
     return Mustache.render()
   end
 
+  def A2LRender._XCP_Interface_Configuration()
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "XCP-Interface-Configuration.mustache"
+    return Mustache.render()
+  end
+
   def A2LRender._to_s(inputs)
     for key in inputs.keys
       inputs[key]=inputs[key].to_s
