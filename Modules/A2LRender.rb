@@ -351,6 +351,11 @@ end
     Mustache.render(A2LRender._to_s(inputs))
   end
 
+  def A2LRender._Code_Memory(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Code-Memory.mustache"
+    return Mustache.render(A2LRender._to_s(inputs))
+  end 
+
   def A2LRender._Data_Memory(inputs)
     Mustache.template_file=File.dirname(__FILE__) + Templates + "Data-Memory.mustache"
     total=""

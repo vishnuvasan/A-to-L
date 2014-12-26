@@ -273,4 +273,16 @@ for i in 1..5
  Mod_Par["ECU_NAME"]="Anyways the Car will Crash"
  Mod_Par["CALIBRATION_OFFSET"]="0x0000"
 
+ Code_Memory=Hash.new
+ Code_Memory["NAME"]="Code Memory"
+ Code_Memory["DESCRIPTION"]="Sample Code Memory"
+ Code_Memory["MODE"]="INTERN"
+ Code_Memory["ORIGIN_ADDR"]="0x16000"
+ Code_Memory["LENGTH"]="0x86C"
+ Code_Memory["OFFSET_ADDR"]="-1 -1 -1 -1 -1"
+ Code_Memory["COMMUNICATION_INTERFACE"]="XCP"
+ Code_Memory["SEGMENT_VALUE"]="0x0 0x2 0x0 0x0 0x0"
+ Code_Memory["PAGE1"]="0x0"
+ Code_Memory["PAGE2"]="0x1"
+
 A2L.Generate

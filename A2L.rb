@@ -142,6 +142,10 @@ module A2L
       puts A2LRender._End_ModPar()
     end
 
+    if defined? Code_Memory then
+      puts A2LRender._Code_Memory(Code_Memory)
+    end
+
   end
 
 end

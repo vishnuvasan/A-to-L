@@ -1,0 +1,18 @@
+            /******************** DATA MEMORY {{MODE}} - {{COMMUNICATION_INTERFACE}} ********************/
+
+            /begin MEMORY_SEGMENT  {{NAME}} "{{DESCRIPTION}}"
+                DATA FLASH {{MODE}}  {{ORIGIN_ADDR}} {{LENGTH}} {{OFFSET_ADDR}}
+                /begin IF_DATA {{COMMUNICATION_INTERFACE}}
+			          /begin SEGMENT 
+			            {{SEGMENT_VALUE}}
+			            /begin PAGE 
+			              {{PAGE1}} ECU_ACCESS_DONT_CARE XCP_READ_ACCESS_WITH_ECU_ONLY XCP_WRITE_ACCESS_NOT_ALLOWED 
+			            /end PAGE
+			            /begin PAGE 
+			              {{PAGE2}} ECU_ACCESS_DONT_CARE XCP_READ_ACCESS_WITH_ECU_ONLY XCP_WRITE_ACCESS_WITH_ECU_ONLY 
+			            /end PAGE
+			          /end SEGMENT
+                /end IF_DATA
+            /end MEMORY_SEGMENT
+
+            
