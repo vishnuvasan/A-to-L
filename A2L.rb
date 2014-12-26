@@ -162,6 +162,13 @@ module A2L
       puts A2LRender._End_ETK()
     end
 
+    if defined? Measurement_Identical then
+      puts A2LRender._Measurement_Identical(Measurement_Identical)
+    end
+
+    if defined? Measurement_BitMask then
+      puts A2LRender._Measurement_BitMask(Measurement_BitMask)
+    end
   end
 
 end

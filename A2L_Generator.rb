@@ -168,7 +168,7 @@ for i in 2..100
   Compu_Details["PHYSICAL_REP"]="%4.5"
   Compu_Details["UNIT"]="No Unit" + " " + i.to_s
   Compu_Details["COEFF_TYPE"]="COEFFS"
-  Compu_Details["COEFF_ 	A"]=i++
+  Compu_Details["COEFF_A"]=i++
   Compu_Details["COEFF_B"]=i++
   Compu_Details["COEFF_C"]=i++
   Compu_Details["COEFF_D"]=i++
@@ -328,5 +328,41 @@ for i in 1..5
  Blob["APPLICATION"]="MEASUREMENT"
  Blob["USAGE"]="CHECKSUM_EXCLUDE_ONLY"
  Blob["OFFSET_ADDR"]="-1 -1 -1 -1 -1"
+
+Measurement_Identical=Hash.new
+
+for i in 2..100
+  Meas_Details=Hash.new
+  Meas_Details["NAME"]="Measurement_Name_" + i.to_s
+  Meas_Details["DESCRIPTION"]="This is a Sample Description for this Compu Method_" + i.to_s
+  Meas_Details["DATATYPE"]="UBYTE"
+  Meas_Details["COMPU_METHOD"]="I_DONT_KNOW"
+  Meas_Details["RESOLUTION"]=(i-1).to_s
+  Meas_Details["ACCURACY"]=(i-1).to_s
+  Meas_Details["MIN_VALUE"]=(i-45).to_s
+  Meas_Details["MAX_VALUE"]=(i+45).to_s
+  Meas_Details["ECU_ADDR"]="0xD0015B52"
+  Meas_Details["FORMAT"]="%5.0"
+  Measurement_Identical[i]=Meas_Details
+end
+
+
+Measurement_BitMask=Hash.new
+
+for i in 101..145
+  Meas_Details=Hash.new
+  Meas_Details["NAME"]="Measurement_Name_" + i.to_s
+  Meas_Details["DESCRIPTION"]="This is a Sample Description for this Compu Method_" + i.to_s
+  Meas_Details["DATATYPE"]="UBYTE"
+  Meas_Details["COMPU_METHOD"]="I_DONT_KNOW"
+  Meas_Details["RESOLUTION"]=(i-1).to_s
+  Meas_Details["ACCURACY"]=(i-1).to_s
+  Meas_Details["MIN_VALUE"]=(i-45).to_s
+  Meas_Details["MAX_VALUE"]=(i+45).to_s
+  Meas_Details["BITMASK_ADDR"]=(i+45).to_s
+  Meas_Details["ECU_ADDR"]="0xD0015B52"
+  Meas_Details["FORMAT"]="%5.0"
+  Measurement_BitMask[i]=Meas_Details
+end
 
 A2L.Generate

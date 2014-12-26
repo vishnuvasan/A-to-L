@@ -417,4 +417,22 @@ end
     return Mustache.render()
   end  
 
+  def A2LRender._Measurement_Identical(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Measurement-Identical.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
+  def A2LRender._Measurement_BitMask(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Measurement-BitMask.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
 end
