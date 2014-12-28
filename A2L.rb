@@ -222,6 +222,10 @@ module A2L
       puts A2LRender._Characteristic_Curve_Axis_Rescale(Characteristic_Curve_Axis_Rescale)
     end
 
+    if defined? Characteristic_Curve_Monotony then
+      puts A2LRender._Characteristic_Curve_Monotony(Characteristic_Curve_Monotony)
+    end
+
 
   end
 
