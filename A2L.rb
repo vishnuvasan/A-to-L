@@ -198,6 +198,10 @@ module A2L
       puts A2LRender._Characteristic_Curve_Standard(Characteristic_Curve_Standard)
     end
 
+    if defined? Characteristic_Curve_Common then
+      puts A2LRender._Characteristic_Curve_Common(Characteristic_Curve_Common)
+    end    
+
   end
 
 end
