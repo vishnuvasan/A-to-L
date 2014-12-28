@@ -234,6 +234,10 @@ module A2L
       puts A2LRender._Characteristic_Cuboid_Standard(Characteristic_Cuboid_Standard)
     end
 
+    if defined? Characteristic_Dependent then
+      puts A2LRender._Characteristic_Dependent(Characteristic_Dependent)
+    end
+
   end
 
 end

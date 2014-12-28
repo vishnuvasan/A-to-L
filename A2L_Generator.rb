@@ -791,4 +791,29 @@ for i in 901..925
 end
 
 
+Characteristic_Dependent=Hash.new
+
+for i in 926..950
+  Char_Details=Hash.new
+  Char_Details["ECU_VARIABLE"]="Characteristic_Name_" + i.to_s
+  Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
+  Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
+  Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["COMPU_METHOD"]="Unknown" 
+  Char_Details["MINIMUM"]=(i-10).to_s
+  Char_Details["MAXIMUM"]=(i+10).to_s
+
+  # Axis 1 Details
+  Char_Details["VARIABLE_1"]="Test_Axis_1_" + i.to_s  
+  Char_Details["OPERATOR"]="+"
+  Char_Details["VARIABLE_2"]="Test_Axis_2_" + i.to_s 
+  Char_Details["VARIABLE_1_REF"]="Test_Axis_1_Ref_" + i.to_s    
+  Char_Details["VARIABLE_2_REF"]="Test_Axis_2_Ref_" + i.to_s 
+
+  Char_Details["FORMAT"]="%5.6"
+  Char_Details["DISPLAY_IDENTIFIER"]="I DONT KNOW"
+
+  Characteristic_Dependent[i]=Char_Details
+end
+
 A2L.Generate
