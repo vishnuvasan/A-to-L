@@ -218,7 +218,9 @@ module A2L
       puts A2LRender._Characteristic_Curve_Axis_Standard(Characteristic_Curve_Axis_Standard)
     end 
 
-
+    if defined? Characteristic_Curve_Axis_Rescale then
+      puts A2LRender._Characteristic_Curve_Axis_Rescale(Characteristic_Curve_Axis_Rescale)
+    end
 
 
   end
