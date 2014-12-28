@@ -471,4 +471,22 @@ end
     return total
   end
 
+  def A2LRender._Characteristic_Array(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-Array.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end  
+
+  def A2LRender._Characteristic_ASCII(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-ASCII.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end   
+
 end

@@ -185,7 +185,15 @@ module A2L
     if defined? Characteristic_Identical then
       puts A2LRender._Characteristic_Identical(Characteristic_Identical)
     end
-    
+
+    if defined? Characteristic_Array then
+      puts A2LRender._Characteristic_Array(Characteristic_Array)
+    end
+  
+    if defined? Characteristic_ASCII then
+      puts A2LRender._Characteristic_ASCII(Characteristic_ASCII)
+    end
+
   end
 
 end
