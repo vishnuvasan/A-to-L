@@ -214,6 +214,13 @@ module A2L
       puts A2LRender._Characteristic_Curve_Axis(Characteristic_Curve_Axis)
     end 
 
+    if defined? Characteristic_Curve_Axis_Standard then
+      puts A2LRender._Characteristic_Curve_Axis_Standard(Characteristic_Curve_Axis_Standard)
+    end 
+
+
+
+
   end
 
 end
