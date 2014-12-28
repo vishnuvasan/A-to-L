@@ -516,5 +516,13 @@ end
     return total
   end
 
+  def A2LRender._Characteristic_Curve_Fix_Axis_List(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-Curve-Fix-Axis-List.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
 
 end
