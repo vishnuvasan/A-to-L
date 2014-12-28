@@ -16,7 +16,7 @@ require File.dirname(__FILE__)+"/A2L.rb"
 #If you hate these Names and you want to update with your own Hashes then you should be poking 
 #your head in to the Modules\A2L_Render.rb and Customizing the Hash Names for their Respective Template
 
-Measurement1=Hash.new
+Measurement=Hash.new
 
 # => Define the HEADER Details of the A2L
 Header= {
@@ -41,7 +41,7 @@ ModCommon= {
 # => This Example is useless because in Real Time 
 # => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
 
-Measurement1 ={1=>{
+Measurement ={1=>{
 			"ECU_VARIABLE"=>"Variable 1",
 			"DESCRIPTION"=>"This is a Sample Description for this Variable",
 			"DATATYPE"=>"uint8",
@@ -98,7 +98,7 @@ for i in 2..100
   Variable_Details["ECU_ADDRESS"]="0x0000BB"
   Variable_Details["INTERNAL_TYPE"]="BYTE"
   Variable_Details["USER_DEFINED"]="What the Hell is Happening" + i.to_s
-  Measurement1[i]=Variable_Details
+  Measurement[i]=Variable_Details
 end
 
 
@@ -106,17 +106,15 @@ end
 # => This Example is useless because in Real Time 
 # => a Typical ECU will contain a minimum of 65000 to 2 Lakh Variables
 
-Characteristic1 ={1=>{
+Characteristic ={1=>{
 			"ECU_VARIABLE"=>"Variable 1",
 			"DESCRIPTION"=>"This is a Sample Description for this Variable",
-			"DATATYPE"=>"uint8",
+      "ECU_ADDRESS"=>"0x0000BB",
+      "RECORD_LAYOUT"=>"0x0000BB",     
+			"DEFAULT_VALUE"=>24,
 			"COMPU_METHOD"=>"Sample_Compu_Method",
-			"MAX_DIFF"=>0,
 			"MINIMUM"=>-128,
 			"MAXIMUM"=>127,
-			"BITMASK"=>"0x0000FF",
-			"ECU_ADDRESS"=>"0x0000BB",
-			"INTERNAL_TYPE"=>"BYTE",
 			"USER_DEFINED"=>"You can give any comment as you wish.This will be appended as a comment in the Description"
 }}
 
@@ -133,7 +131,7 @@ Verbal_Formula={1=>{2=>"Sawtooth"},2=>{789=>"Square Wave"},3=>{900=>"Sine wave"}
 # => 		16=>{35=>"B"}}	# This will assign for Values from 16 to 35 as "B"
 
 # Verbal_Formula={1=>"Sawtooth",2=>"Square Wave",3=>"Sine wave",5=>"Cos Wave"}
-CompuMethod1={1=>{
+CompuMethod={1=>{
 		"NAME"=>"Sample Compu Method",
 		"DESCRIPTION"=>"Sample Description for Compu Method",
 		"COMPU_METHOD_TYPE"=>"TAB_VERB",
@@ -164,7 +162,7 @@ for i in 2..100
   Compu_Details=Hash.new
   Compu_Details["NAME"]="Compu Method" + i.to_s
   Compu_Details["DESCRIPTION"]=i.to_s + "This is a Sample Description for this Compu Method"
-  Compu_Details["COMPU_METHOD_TYPE"]=nil
+  Compu_Details["COMPU_METHOD_TYPE"]="lin"
   Compu_Details["PHYSICAL_REP"]="%4.5"
   Compu_Details["UNIT"]="No Unit" + " " + i.to_s
   Compu_Details["COEFF_TYPE"]="COEFFS"
@@ -173,7 +171,7 @@ for i in 2..100
   Compu_Details["COEFF_C"]=i++
   Compu_Details["COEFF_D"]=i++
   Compu_Details["COEFF_E"]=i
-  CompuMethod1[i]=Compu_Details
+  CompuMethod[i]=Compu_Details
 end
 
 
@@ -181,13 +179,13 @@ CCPConfig=Hash.new
 CCPConfig["DESCRIPTOR_FOR_CCP"]="Welcome to CCP"
 
 
-XCPConfig1=Hash.new
+XCPConfig=Hash.new
 
-XCPConfig1["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
-XCPConfig1["ECU_ACCESS"]="ALLOWED"
-XCPConfig1["XCP_READ_ACCESS"]="NOT ALLOWED"
-XCPConfig1["XCP_WRITE_ACCESS"]="ALLOWED"
-XCPConfig1["DAQ_SUPPORT"]=false
+XCPConfig["DESCRIPTOR_FOR_XCP"]="Hi and Welcome to XCP Configuration using A2L Generator"
+XCPConfig["ECU_ACCESS"]="ALLOWED"
+XCPConfig["XCP_READ_ACCESS"]="NOT ALLOWED"
+XCPConfig["XCP_WRITE_ACCESS"]="ALLOWED"
+XCPConfig["DAQ_SUPPORT"]=false
 
 CANAPEIni=true
 CreateIni=true
