@@ -200,7 +200,11 @@ module A2L
 
     if defined? Characteristic_Curve_Common then
       puts A2LRender._Characteristic_Curve_Common(Characteristic_Curve_Common)
-    end    
+    end 
+
+    if defined? Characteristic_Curve_Fix_Axis then
+      puts A2LRender._Characteristic_Curve_Fix_Axis(Characteristic_Curve_Fix_Axis)
+    end 
 
   end
 
