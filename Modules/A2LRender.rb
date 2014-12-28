@@ -579,8 +579,8 @@ end
     return total
   end
 
-  def A2LRender._Characteristic_Dependent(inputs)
-    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-Dependent.mustache"
+  def A2LRender._Characteristic_Dependent_Or_Virtual(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Characteristic-Dependent-Or-Virtual.mustache"
     total=""
     for key in inputs.keys
       total+=Mustache.render(A2LRender._to_s(inputs[key]))

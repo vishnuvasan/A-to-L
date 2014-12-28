@@ -791,7 +791,7 @@ for i in 901..925
 end
 
 
-Characteristic_Dependent=Hash.new
+Characteristic_Dependent_Or_Virtual=Hash.new
 
 for i in 926..950
   Char_Details=Hash.new
@@ -804,6 +804,12 @@ for i in 926..950
   Char_Details["MAXIMUM"]=(i+10).to_s
 
   # Axis 1 Details
+  if i%2==0
+    Char_Details["TYPE"]="DEPENDENT"
+    else
+    Char_Details["TYPE"]="VIRTUAL"        
+  end  
+
   Char_Details["VARIABLE_1"]="Test_Axis_1_" + i.to_s  
   Char_Details["OPERATOR"]="+"
   Char_Details["VARIABLE_2"]="Test_Axis_2_" + i.to_s 
@@ -813,7 +819,7 @@ for i in 926..950
   Char_Details["FORMAT"]="%5.6"
   Char_Details["DISPLAY_IDENTIFIER"]="I DONT KNOW"
 
-  Characteristic_Dependent[i]=Char_Details
+  Characteristic_Dependent_Or_Virtual[i]=Char_Details
 end
 
 A2L.Generate
