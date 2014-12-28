@@ -1,0 +1,31 @@
+
+/begin CHARACTERISTIC {{ECU_VARIABLE}}
+"{{DESCRIPTION}}"
+ MAP
+ {{ECU_ADDRESS}}
+ {{RECORD_LAYOUT}}
+ 0		/* MAX_DIF is always taken as 0 */
+ {{COMPU_METHOD}}
+ {{MINIMUM}} {{MAXIMUM}}
+
+ /begin AXIS_DESCR
+	STD_AXIS 
+	{{AXIS_1_NAME}} 
+	{{AXIS_1_COMPU_METHOD}}                                         
+	{{AXIS_1_NUMBER_OF_AXIS_PTS}}
+	{{AXIS_1_MINIMUM}} {{AXIS_1_MAXIMUM}}
+ /end AXIS_DESCR
+
+ /begin AXIS_DESCR
+	STD_AXIS 
+	{{AXIS_2_NAME}} 
+	{{AXIS_2_COMPU_METHOD}}                                         
+	{{AXIS_2_NUMBER_OF_AXIS_PTS}}
+	{{AXIS_2_MINIMUM}} {{AXIS_2_MAXIMUM}}
+ /end AXIS_DESCR
+
+ FORMAT "{{FORMAT}}"
+ DISPLAY_IDENTIFIER {{DISPLAY_IDENTIFIER}}
+ 
+/end CHARACTERISTIC
+
