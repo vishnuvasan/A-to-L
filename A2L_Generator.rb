@@ -430,6 +430,7 @@ for i in 555..570
   Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
   Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
   Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["COMPU_METHOD"]="Unknown"
   Char_Details["MINIMUM"]=(i-10).to_s
   Char_Details["MAXIMUM"]=(i+10).to_s
   Char_Details["EXTENDED_MINIMUM"]=(i-45).to_s
@@ -448,6 +449,7 @@ for i in 555..570
   Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
   Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
   Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["COMPU_METHOD"]="Unknown"  
   Char_Details["MINIMUM"]=(i-10).to_s
   Char_Details["MAXIMUM"]=(i+10).to_s
   Char_Details["EXTENDED_MINIMUM"]=(i-45).to_s
@@ -469,11 +471,36 @@ for i in 555..570
   Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
   Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
   Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["COMPU_METHOD"]="Unknown" 
   Char_Details["MINIMUM"]=(i-10).to_s
   Char_Details["MAXIMUM"]=(i+10).to_s
   Char_Details["NUMBER"]=(i-45).to_s
   Char_Details["DISPLAY_IDENTIFIER"]="I DONT KNOW"
   Characteristic_ASCII[i]=Char_Details
+end
+
+Characteristic_Curve_Standard=Hash.new
+
+for i in 700..723
+  Char_Details=Hash.new
+  Char_Details["ECU_VARIABLE"]="Characteristic_Name_" + i.to_s
+  Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
+  Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
+  Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["COMPU_METHOD"]="Unknown" 
+  Char_Details["MINIMUM"]=(i-10).to_s
+  Char_Details["MAXIMUM"]=(i+10).to_s
+
+  # Axis Details
+  Char_Details["AXIS_NAME"]="Test_Axis_" + i.to_s  
+  Char_Details["AXIS_COMPU_METHOD"]="Test_Axis_Compu_Method_" + i.to_s 
+  Char_Details["NUMBER_OF_AXIS_PTS"]=(i+10).to_s
+  Char_Details["AXIS_MINIMUM"]=(i-45).to_s    
+  Char_Details["AXIS_MAXIMUM"]=(i+45).to_s  
+
+  Char_Details["FORMAT"]="%5.6"
+  Char_Details["DISPLAY_IDENTIFIER"]="I DONT KNOW"
+  Characteristic_Curve_Standard[i]=Char_Details
 end
 
 A2L.Generate

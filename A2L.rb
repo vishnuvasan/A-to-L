@@ -194,6 +194,10 @@ module A2L
       puts A2LRender._Characteristic_ASCII(Characteristic_ASCII)
     end
 
+    if defined? Characteristic_Curve_Standard then
+      puts A2LRender._Characteristic_Curve_Standard(Characteristic_Curve_Standard)
+    end
+
   end
 
 end
