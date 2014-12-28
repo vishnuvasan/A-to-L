@@ -230,6 +230,9 @@ module A2L
       puts A2LRender._Characteristic_Map_Standard(Characteristic_Map_Standard)
     end
 
+    if defined? Characteristic_Cuboid_Standard then
+      puts A2LRender._Characteristic_Cuboid_Standard(Characteristic_Cuboid_Standard)
+    end
 
   end
 
