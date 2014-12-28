@@ -210,6 +210,10 @@ module A2L
       puts A2LRender._Characteristic_Curve_Fix_Axis_List(Characteristic_Curve_Fix_Axis_List)
     end 
 
+    if defined? Characteristic_Curve_Axis then
+      puts A2LRender._Characteristic_Curve_Axis(Characteristic_Curve_Axis)
+    end 
+
   end
 
 end
