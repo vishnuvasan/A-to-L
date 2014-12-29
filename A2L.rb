@@ -240,7 +240,11 @@ module A2L
 
     if defined? Characteristic_Curve then
       puts A2LRender._Characteristic_Curve(Characteristic_Curve)
-    end    
+    end  
+
+    if defined? Characteristic_Map then
+      puts A2LRender._Characteristic_Map(Characteristic_Map)
+    end        
 
   end
 
