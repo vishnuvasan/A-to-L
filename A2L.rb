@@ -238,6 +238,10 @@ module A2L
       puts A2LRender._Characteristic_Dependent_Or_Virtual(Characteristic_Dependent_Or_Virtual)
     end
 
+    if defined? Characteristic_Curve then
+      puts A2LRender._Characteristic_Curve(Characteristic_Curve)
+    end    
+
   end
 
 end

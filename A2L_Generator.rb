@@ -820,4 +820,28 @@ for i in 926..950
   Characteristic_Dependent_Or_Virtual[i]=Char_Details
 end
 
+Characteristic_Curve=Hash.new
+
+for i in 951..975
+  Char_Details=Hash.new
+  Char_Details["ECU_VARIABLE"]="Characteristic_Name_" + i.to_s
+  Char_Details["DESCRIPTION"]="This is a Sample Description for this Characterisic_" + i.to_s
+  Char_Details["ECU_ADDRESS"]="0xD0015B52" + i.to_s
+  Char_Details["RECORD_LAYOUT"]="God Knows"
+  Char_Details["DEFAULT_VALUE"]=i.to_s
+  Char_Details["COMPU_METHOD"]="Unknown" 
+  Char_Details["MINIMUM"]=(i-10).to_s
+  Char_Details["MAXIMUM"]=(i+10).to_s
+
+  # Axis Details
+  Char_Details["AXIS_NAME"]="Test_Axis_" + i.to_s  
+  Char_Details["AXIS_COMPU_METHOD"]="Test_Axis_Compu_Method_" + i.to_s 
+  Char_Details["NUMBER_OF_AXIS_PTS"]=(i+10).to_s
+  Char_Details["AXIS_MINIMUM"]=(i-45).to_s    
+  Char_Details["AXIS_MAXIMUM"]=(i+45).to_s  
+  Char_Details["AXIS_PTS_REF_NAME"]="Test_Axis_Pt_Reference_Name_" + i.to_s  
+
+  Characteristic_Curve[i]=Char_Details
+end
+
 A2L.Generate
