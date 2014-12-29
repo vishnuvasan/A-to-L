@@ -606,4 +606,14 @@ end
     return total
   end
 
+  def A2LRender._Axis_Pts(inputs)
+    Mustache.template_file=File.dirname(__FILE__) + Templates + "Axis-Pts.mustache"
+    total=""
+    for key in inputs.keys
+      total+=Mustache.render(A2LRender._to_s(inputs[key]))
+    end
+    return total
+  end
+
+
 end

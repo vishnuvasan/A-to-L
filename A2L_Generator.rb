@@ -880,5 +880,20 @@ for i in 976..1000
 end
 
 
+Axis_Pts = Hash.new
+
+for i in 1001..1025
+  Char_Details["AXIS_PTS_REF_NAME"]="Test_Axis_Pt_Reference_Name_" + i.to_s
+  Char_Details["AXIS_PT_DESCRIPTION"]="Test_Axis_Pt_Description_" + i.to_s  
+  Char_Details["AXIS_PT_ADDRESS"]="0xA00424D0" + i.to_s 
+  Char_Details["AXIS_PT_INPUT"]="Test_Axis_Pt_Input_" + i.to_s
+  Char_Details["AXIS_PT_LAYOUT"]="Test_Axis_Pt_Layout_" + i.to_s      
+  Char_Details["AXIS_PT_DEFAULT_VALUE"]=i.to_s 
+  Char_Details["AXIS_PT_COMPU"]="Test_Axis_Pt_Compu_" + i.to_s   
+  Char_Details["NUMBER_OF_AXIS_PTS"]=(i+10).to_s
+  Char_Details["AXIS_PT_MINIMUM"]=(i-55).to_s  
+  Char_Details["AXIS_PT_MAXIMUM"]=(i+55).to_s 
+  Axis_Pts[i]=Char_Details
+end
 
 A2L.Generate

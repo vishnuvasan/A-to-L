@@ -244,7 +244,11 @@ module A2L
 
     if defined? Characteristic_Map then
       puts A2LRender._Characteristic_Map(Characteristic_Map)
-    end        
+    end  
+
+    if defined? Axis_Pts then
+      puts A2LRender._Axis_Pts(Axis_Pts)
+    end      
 
   end
 
